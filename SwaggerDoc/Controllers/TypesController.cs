@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static SwaggerDoc.Message.ApiEnveloppeFactory;
+using static SwaggerDoc.Enveloppe.ApiEnveloppeFactory;
 
 namespace SwaggerDoc.Controllers
 {

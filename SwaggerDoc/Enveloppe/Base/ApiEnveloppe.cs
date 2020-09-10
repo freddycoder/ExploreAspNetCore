@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SwaggerDoc.Message
+namespace SwaggerDoc.Enveloppe
 {
     /// <summary>
     /// Enveloppe de réponse de l'api

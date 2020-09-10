@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
-namespace SwaggerDoc.Message
+namespace SwaggerDoc.Enveloppe
 {
     /// <summary>
     /// Classe static offrant des méthodes pour générer des ApiEnveloppe
@@ -67,6 +67,31 @@ namespace SwaggerDoc.Message
                         Text = "Aucun résultat trouvé"
                     }
                 }
+            });
+
+            return envloppeResult;
+        }
+
+        /// <summary>
+        /// Un enveloppe avec le status 404
+        /// </summary>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public static IActionResult BadRequestEnveloppe(object result)
+        {
+            var envloppeResult = new NotFoundObjectResult(new ApiEnveloppe404
+            {
+                Messages = new List<Message>
+                {
+                    new Message
+                    {
+                        Id = "API_003",
+                        Code = "400",
+                        Severity = "Major",
+                        Text = "Un erreur est survenu"
+                    }
+                },
+                Result = result
             });
 
             return envloppeResult;

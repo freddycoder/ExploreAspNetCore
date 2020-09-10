@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace SwaggerDoc.Message
+namespace SwaggerDoc.Enveloppe
 {
     /// <summary>
     /// Classe représentant une enveloppe de réponse 422

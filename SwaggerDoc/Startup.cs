@@ -9,7 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using FluentValidation.AspNetCore;
 using SwaggerDoc.Controllers;
-using SwaggerDoc.Message;
+using SwaggerDoc.Enveloppe;
 using SwaggerDoc.ActionFilter;
 using Newtonsoft.Json;
 using SwaggerDoc.Validator.Types;

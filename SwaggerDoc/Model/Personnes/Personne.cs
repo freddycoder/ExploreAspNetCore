@@ -16,11 +16,14 @@ namespace SwaggerDoc.Model.Personnes
         [DefaultValue("Jacques")]
         public string Nom { get; set; }
 
-        [DefaultValue("M")]
+        [DefaultValue(Genre.M)]
         public Genre Genre { get; set; }
 
         [DefaultValue("1994-01-21")]
         public DateTime DateNaissance { get; set; }
+
+        [System.Xml.Serialization.XmlIgnore]
+        internal string Xml { get; set; }
     }
 
     public enum Genre

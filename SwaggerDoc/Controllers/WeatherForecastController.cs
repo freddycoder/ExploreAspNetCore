@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using static SwaggerDoc.Message.ApiEnveloppeFactory;
+using static SwaggerDoc.Enveloppe.ApiEnveloppeFactory;
 
 namespace SwaggerDoc.Controllers
 {

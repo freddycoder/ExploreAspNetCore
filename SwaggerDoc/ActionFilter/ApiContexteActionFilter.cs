@@ -1,19 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using SwaggerDoc.Enveloppe;
+using SwaggerDoc.Enveloppe.Base;
+using SwaggerDoc.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SwaggerDoc.ActionFilter
 {
     /// <summary>
     /// Action filter pour initialiser le transactionId et le trackingId et l'insérer dans les réponses
     /// </summary>
-    public class ApiContextActionFilter : IActionFilter
+    public class ApiContexteActionFilter : IActionFilter
     {
-        private ApiContext apiContext;
+        private ApiContexte? apiContexte;
 
         /// <summary>
         /// Assigne le TrackingId et le TransactionId au ApiContext
@@ -21,15 +20,15 @@ namespace SwaggerDoc.ActionFilter
         /// <param name="context"></param>
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            apiContext = context.HttpContext.RequestServices.GetService(typeof(ApiContext)) as ApiContext;
+            apiContexte = context.HttpContext.RequestServices.GetService(typeof(ApiContexte)) as ApiContexte;
 
-            if (apiContext is null)
+            if (apiContexte is null)
             {
-                throw new TypeLoadException($"Impossible d'obetnir une instance de '{nameof(ApiContext)}'");
+                throw new TypeLoadException($"Impossible d'obetnir une instance de '{nameof(ApiContexte)}'");
             }
 
-            apiContext.TrackingId = Guid.NewGuid();
-            apiContext.TransactionId = Guid.NewGuid();
+            apiContexte.TrackingId = Guid.NewGuid();
+            apiContexte.TransactionId = Guid.NewGuid();
         }
 
         /// <summary>
@@ -40,10 +39,10 @@ namespace SwaggerDoc.ActionFilter
         {
             var result = context.Result;
 
-            if (result is ObjectResult objectResult && objectResult.Value is ApiEnveloppe enveloppe)
+            if (result is ObjectResult objectResult && objectResult.Value is IApiEnveloppe enveloppe)
             {
-                enveloppe.TrackingId = apiContext.TrackingId;
-                enveloppe.TransactionId = apiContext.TransactionId;
+                enveloppe.TrackingId = apiContexte.TrackingId;
+                enveloppe.TransactionId = apiContexte.TransactionId;
             }
         }
     }

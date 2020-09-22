@@ -40,7 +40,7 @@ namespace SwaggerDoc.Enveloppe
         /// <returns></returns>
         public static IActionResult OkEnveloppe(object result)
         {
-            var envloppeResult = new OkObjectResult(new ApiEnveloppe
+            var envloppeResult = new OkObjectResult(new ApiEnveloppe<object>
             {
                 Result = result
             });

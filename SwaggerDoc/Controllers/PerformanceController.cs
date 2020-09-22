@@ -22,7 +22,7 @@ namespace SwaggerDoc.Controllers
         private static readonly Random _rand = new Random();
 
         [HttpPost("nbFormat")]
-        [ProducesResponseType(200, Type = typeof(PerformanceResult))]
+        [ProducesResponseType(200, Type = typeof(ApiEnveloppe<PerformanceResult>))]
         public IActionResult FormatT([Min(1)]int nbFormat)
         {
             var chrono = new Stopwatch();
@@ -36,7 +36,7 @@ namespace SwaggerDoc.Controllers
 
             chrono.Stop();
 
-            return Ok(new ApiEnveloppe
+            return Ok(new ApiEnveloppe<PerformanceResult>
             {
                 Result = new PerformanceResult
                 {

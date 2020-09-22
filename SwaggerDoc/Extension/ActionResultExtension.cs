@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SwaggerDoc.Enveloppe.Base;
 
 namespace SwaggerDoc.Extension
 {
@@ -16,7 +17,7 @@ namespace SwaggerDoc.Extension
 
             if (actionResult is ObjectResult result)
             {
-                if (result.Value is ApiEnveloppe enveloppe) 
+                if (result.Value is IApiEnveloppe enveloppe) 
                 {
                     if (enveloppe.Messages == null)
                     {

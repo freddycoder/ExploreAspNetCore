@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SwaggerDoc.Enveloppe;
 using static SwaggerDoc.Enveloppe.ApiEnveloppeFactory;
 
 namespace SwaggerDoc.Controllers
@@ -32,7 +33,7 @@ namespace SwaggerDoc.Controllers
         /// <param name="dateArgs">La date de début et la date de fin</param>
         /// <returns>Une liste avec les prédictions météos selons l'intervalle de date demandé</returns>
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(WeatherForecast[]))]
+        [ProducesResponseType(200, Type = typeof(ApiEnveloppe<WeatherForecast[]>))]
         public IActionResult Get([FromQuery] DateArgs dateArgs)
         {
             var rng = new Random();

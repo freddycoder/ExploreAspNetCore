@@ -1,5 +1,6 @@
 ﻿using HLHML;
 using Microsoft.AspNetCore.Mvc;
+using SwaggerDoc.Enveloppe;
 using SwaggerDoc.Model.Programming;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,8 @@ namespace SwaggerDoc.Controllers
         /// <param name="text">Les données relative au programme à exécuter</param>
         /// <returns>Le résultat de la sortie standart produit par l'interpreteur</returns>
         [HttpPost]
+        [ProducesResponseType(200, Type = typeof(ApiEnveloppe<string>))]
+        [ProducesResponseType(404, Type = typeof(ApiEnveloppe404))]
         public async Task<IActionResult> ExecuterScript([FromBody] ProgramToExecute text)
         {
             try

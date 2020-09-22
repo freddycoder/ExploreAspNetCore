@@ -1,4 +1,5 @@
 ﻿using FluentValidation.Results;
+using SwaggerDoc.Enveloppe.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace SwaggerDoc.Enveloppe
     /// <summary>
     /// Enveloppe de réponse de l'api
     /// </summary>
-    public class ApiEnveloppe
+    public class ApiEnveloppe<T> : IApiEnveloppe
     {
         /// <summary>
         /// L'id de transaction
@@ -29,7 +30,7 @@ namespace SwaggerDoc.Enveloppe
         /// <summary>
         /// Donnée utile
         /// </summary>
-        public virtual object Result { get; set; }
+        public virtual T Result { get; set; }
     }
 
     /// <summary>

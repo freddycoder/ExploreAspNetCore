@@ -8,7 +8,7 @@ namespace SwaggerDoc.Enveloppe
     /// <summary>
     /// Classe représentant un enveloppe de réponse 404
     /// </summary>
-    public class ApiEnveloppe404 : ApiEnveloppe
+    public class ApiEnveloppe404 : ApiEnveloppe<object>
     {
     }
 }

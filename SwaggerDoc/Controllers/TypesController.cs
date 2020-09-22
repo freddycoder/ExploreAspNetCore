@@ -1,5 +1,6 @@
 ﻿using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
+using SwaggerDoc.Enveloppe;
 using SwaggerDoc.Validator.Types;
 using System;
 using System.Collections.Generic;
@@ -20,8 +21,11 @@ namespace SwaggerDoc.Controllers
         /// Permet d'obtenir tout les type de AppDomain.CurrentDomain
         /// </summary>
         /// <param name="name">Le nom du type doit contenir</param>
-        /// <returns></returns>
-        [ProducesResponseType(200, Type = typeof(List<string>))]
+        /// <returns>Les types trouvés</returns>
+        /// <reponse code="200">La liste des types trouvés</reponse>
+        /// <reponse code="404">Si aucun type est trouvé</reponse>
+        [ProducesResponseType(200, Type = typeof(ApiEnveloppe<List<string>>))]
+        [ProducesResponseType(404, Type = typeof(ApiEnveloppe404))]
         [HttpGet]
         public IActionResult Types(string name)
             => Enveloppe(AppDomain.CurrentDomain
@@ -36,7 +40,8 @@ namespace SwaggerDoc.Controllers
         /// </summary>
         /// <param name="name">Le nom du type doit contenir</param>
         /// <returns></returns>
-        [ProducesResponseType(200, Type = typeof(Type))]
+        [ProducesResponseType(200, Type = typeof(ApiEnveloppe<Type>))]
+        [ProducesResponseType(404, Type = typeof(ApiEnveloppe404))]
         [HttpGet("{name}")]
         [TypeNameValidator(Order = int.MinValue + 100)]
         public IActionResult Get(string name)
@@ -51,7 +56,8 @@ namespace SwaggerDoc.Controllers
         /// <param name="name">Le nom du type doit contenir</param>
         /// <returns></returns>
         [HttpGet("Mappers")]
-        [ProducesResponseType(200, Type = typeof(List<string>))]
+        [ProducesResponseType(200, Type = typeof(ApiEnveloppe<List<string>>))]
+        [ProducesResponseType(404, Type = typeof(ApiEnveloppe404))]
         public IActionResult TypesWithMapper(string name)
             => Enveloppe(AppDomain.CurrentDomain
                 .GetAssemblies()

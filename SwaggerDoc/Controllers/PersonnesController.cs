@@ -27,6 +27,8 @@ namespace SwaggerDoc.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(200, Type = typeof(ApiEnveloppe<Personne>))]
+        [ProducesResponseType(404, Type = typeof(ApiEnveloppe404))]
         public IActionResult Personne([FromQuery] Personne personne)
         {
             if (personne == default)

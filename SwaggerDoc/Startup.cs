@@ -14,6 +14,7 @@ using SwaggerDoc.ActionFilter;
 using Newtonsoft.Json;
 using SwaggerDoc.Validator.Types;
 using Newtonsoft.Json.Converters;
+using SwaggerDoc.Model;
 
 namespace SwaggerDoc
 {
@@ -42,11 +43,13 @@ namespace SwaggerDoc
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ApiContext>();
+            services.AddScoped<ApiContexte>();
+            services.AddSingleton<JournalTransaction>();
 
             services.AddControllers(o =>
                     {
-                        o.Filters.Add<ApiContextActionFilter>(int.MinValue + 10);
+                        o.Filters.Add<ApiContexteActionFilter>(int.MinValue + 10);
+                        o.Filters.Add<JournalisationTransactionActionFilter>(int.MinValue + 11);
                     })
                     .AddNewtonsoftJson(o =>
                     {

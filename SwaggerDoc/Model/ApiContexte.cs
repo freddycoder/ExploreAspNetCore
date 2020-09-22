@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace SwaggerDoc.ActionFilter
+namespace SwaggerDoc.Model
 {
     /// <summary>
     /// Context de l'api. Permet de stocker le TransactionId et le TrackingId
     /// </summary>
-    public class ApiContext
+    public class ApiContexte
     {
         /// <summary>
         /// L'id de la transaction

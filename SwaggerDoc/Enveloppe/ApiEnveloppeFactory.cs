@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections.Generic;
 
 namespace SwaggerDoc.Enveloppe
@@ -73,13 +74,13 @@ namespace SwaggerDoc.Enveloppe
         }
 
         /// <summary>
-        /// Un enveloppe avec le status 404
+        /// Un enveloppe avec le status 400
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
         public static IActionResult BadRequestEnveloppe(object result)
         {
-            var envloppeResult = new NotFoundObjectResult(new ApiEnveloppe404
+            var envloppeResult = new BadRequestObjectResult(new ApiEnveloppe404
             {
                 Messages = new List<Message>
                 {
@@ -93,6 +94,39 @@ namespace SwaggerDoc.Enveloppe
                 },
                 Result = result
             });
+
+            return envloppeResult;
+        }
+
+        /// <summary>
+        /// Un enveloppe avec le status 400. La propriété message sera populé par le ModeleStateDictinary
+        /// </summary>
+        /// <param name="result"></param>
+        /// <param name="modelState"></param>
+        /// <returns></returns>
+        public static IActionResult BadRequestEnveloppe(object? result, ModelStateDictionary modelState)
+        {
+            var apiEnveloppe = new ApiEnveloppe<object>
+            {
+                Messages = new List<Message>(),
+                Result = result
+            };
+
+            foreach (var state in modelState)
+            {
+                foreach (var erreur in state.Value.Errors)
+                {
+                    apiEnveloppe.Messages.Add(new Message
+                    {
+                        Id = state.Key,
+                        Code = "API_POST_TRAIT",
+                        Severity = "Error",
+                        Text = erreur.ErrorMessage
+                    });
+                }
+            }
+
+            var envloppeResult = new BadRequestObjectResult(apiEnveloppe);
 
             return envloppeResult;
         }

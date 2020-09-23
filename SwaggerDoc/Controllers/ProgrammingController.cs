@@ -1,12 +1,8 @@
-﻿using HLHML;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SwaggerDoc.Enveloppe;
 using SwaggerDoc.Model.Programming;
+using SwaggerDoc.Services;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using static SwaggerDoc.Enveloppe.ApiEnveloppeFactory;
 
@@ -19,6 +15,13 @@ namespace SwaggerDoc.Controllers
     [Route("[controller]")]
     public class ProgrammingController : Controller
     {
+        private IInterpretationService _interpretationService;
+
+        public ProgrammingController(IInterpretationService interpretationService)
+        {
+            _interpretationService = interpretationService;
+        }
+
         /// <summary>
         /// Interpreter un script écrit en français utilisant le package nuget HLHML
         /// </summary>
@@ -31,26 +34,12 @@ namespace SwaggerDoc.Controllers
         {
             try
             {
-                return OkEnveloppe(await InterpreterEtRetournerStdOutScript(text.Text));
+                return OkEnveloppe(await _interpretationService.Interprete(text.Text));
             }
-            catch (Exception e)
+            catch
             {
-                return BadRequestEnveloppe(e);
+                return BadRequestEnveloppe(null, ModelState);
             }
-        }
-
-        private async Task<string> InterpreterEtRetournerStdOutScript(string text)
-        {
-            return await Task.Run(() =>
-            {
-                using var sw = new StringWriter();
-
-                var interpreteur = new Interpreteur(sw);
-
-                interpreteur.Interprete(text);
-
-                return sw.ToString();
-            }, CancellationToken.None);
         }
     }
 }

@@ -1,11 +1,9 @@
-﻿using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SwaggerDoc.Enveloppe;
 using SwaggerDoc.Validator.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using static SwaggerDoc.Enveloppe.ApiEnveloppeFactory;
 
 namespace SwaggerDoc.Controllers
@@ -25,7 +23,7 @@ namespace SwaggerDoc.Controllers
         /// <reponse code="200">La liste des types trouvés</reponse>
         /// <reponse code="404">Si aucun type est trouvé</reponse>
         [ProducesResponseType(200, Type = typeof(ApiEnveloppe<List<string>>))]
-        [ProducesResponseType(404, Type = typeof(ApiEnveloppe404))]
+        [ProducesResponseType(404, Type = typeof(ApiEnveloppe<object>))]
         [HttpGet]
         public IActionResult Types(string name)
             => Enveloppe(AppDomain.CurrentDomain

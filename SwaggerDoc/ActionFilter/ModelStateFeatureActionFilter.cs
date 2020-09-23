@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using SwaggerDoc.Services;
-using System;
 
 namespace SwaggerDoc.ActionFilter
 {
@@ -8,7 +8,7 @@ namespace SwaggerDoc.ActionFilter
     {
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            var state = context.ModelState;
+            ModelStateDictionary state = context.ModelState;
             context.HttpContext.Features.Set(new ModelStateFeature(state));
         }
 

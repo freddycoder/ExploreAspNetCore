@@ -1,12 +1,5 @@
-﻿using FluentValidation;
-using FluentValidation.AspNetCore;
-using FluentValidation.Results;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SwaggerDoc.Validator.Types
 {

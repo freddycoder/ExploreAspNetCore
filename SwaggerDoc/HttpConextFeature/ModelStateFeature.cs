@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace SwaggerDoc.Services
+namespace SwaggerDoc.HttpContextFeature
 {
     public class ModelStateFeature
     {

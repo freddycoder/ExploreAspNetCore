@@ -1,7 +1,6 @@
 ﻿using HLHML;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.Extensions.DependencyInjection;
+using SwaggerDoc.HttpContextFeature;
 using System;
 using System.IO;
 using System.Threading;
@@ -42,7 +41,7 @@ namespace SwaggerDoc.Services
             {
                 var actionContextAccessor = _contextAccessor.HttpContext.Features.Get<ModelStateFeature>();
 
-                actionContextAccessor.ModelState.AddModelError("Text", e.Message);
+                actionContextAccessor.ModelState.AddModelError("text", e.Message);
 
                 throw;
             }

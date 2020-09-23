@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SwaggerDoc.Text
+﻿namespace SwaggerDoc.Text
 {
     public class Token
     {

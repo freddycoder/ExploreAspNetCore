@@ -1,14 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoFixture;
 using SwaggerDoc.Model.Personnes;
 using SwaggerDoc.Extension;
 using SwaggerDoc.Enveloppe;
-using System.ComponentModel.DataAnnotations;
 using System.Collections.Immutable;
 
 namespace SwaggerDoc.Controllers

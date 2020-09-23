@@ -56,7 +56,7 @@ namespace SwaggerDoc.Enveloppe
         /// <returns></returns>
         public static IActionResult NotFoundEnveloppe(object result)
         {
-            var envloppeResult = new NotFoundObjectResult(new ApiEnveloppe404
+            var envloppeResult = new NotFoundObjectResult(new ApiEnveloppe<object>
             {
                 Messages = new List<Message>
                 {
@@ -80,7 +80,7 @@ namespace SwaggerDoc.Enveloppe
         /// <returns></returns>
         public static IActionResult BadRequestEnveloppe(object result)
         {
-            var envloppeResult = new BadRequestObjectResult(new ApiEnveloppe404
+            var envloppeResult = new BadRequestObjectResult(new ApiEnveloppe<object>
             {
                 Messages = new List<Message>
                 {

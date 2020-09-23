@@ -2,7 +2,6 @@
 using SwaggerDoc.Enveloppe;
 using SwaggerDoc.Model.Programming;
 using SwaggerDoc.Services;
-using System;
 using System.Threading.Tasks;
 using static SwaggerDoc.Enveloppe.ApiEnveloppeFactory;
 
@@ -29,7 +28,7 @@ namespace SwaggerDoc.Controllers
         /// <returns>Le résultat de la sortie standart produit par l'interpreteur</returns>
         [HttpPost]
         [ProducesResponseType(200, Type = typeof(ApiEnveloppe<string>))]
-        [ProducesResponseType(404, Type = typeof(ApiEnveloppe404))]
+        [ProducesResponseType(400, Type = typeof(ApiEnveloppe<object>))]
         public async Task<IActionResult> ExecuterScript([FromBody] ProgramToExecute text)
         {
             try

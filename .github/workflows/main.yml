@@ -23,5 +23,5 @@ jobs:
 
       # Push the image
       - name: Docker push
-        run: docker push swaggerdoc:$GITHUB_RUN_ID
+        run: docker push freddycontainers.azurecr.io/swaggerdoc:$GITHUB_RUN_ID
 

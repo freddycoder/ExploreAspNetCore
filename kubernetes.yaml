@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: swaggerdoc-deployment
+  labels:
+    app: swaggerdoc
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: swaggerdoc
+  template:
+    metadata:
+      labels:
+        app: swaggerdoc
+    spec:
+      containers:
+      - name: swaggerdoc
+        image: freddycontainers.azurecr.io/swaggerdoc:285913973
+        ports:
+        - containerPort: 80

@@ -46,5 +46,4 @@ jobs:
       - name: Kubectl apply
         run: |
           kubectl config current-context
-          kubectl create deployment $DEPLOYMENT_NAME --image=$REGISTRY_HOSTNAME/$IMAGE_NAME:$GITHUB_RUN_ID -o yaml > deployment.yaml
-          kubectl apply -f deployment.yaml
+          kubectl apply -f kubernetes.yaml

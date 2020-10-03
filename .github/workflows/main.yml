@@ -9,7 +9,7 @@ on:
 env:
   REGISTRY_HOSTNAME: freddycontainers.azurecr.io
   IMAGE_NAME: swaggerdoc
-  DEPLOYMENT_NAME: swaggerdoc-cd
+  DEPLOYMENT_NAME: swaggerdoc
   PORT: 5000
 
 jobs:

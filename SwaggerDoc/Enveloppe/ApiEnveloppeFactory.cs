@@ -54,7 +54,7 @@ namespace SwaggerDoc.Enveloppe
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        public static IActionResult NotFoundEnveloppe(object result)
+        public static IActionResult NotFoundEnveloppe(object? result)
         {
             var envloppeResult = new NotFoundObjectResult(new ApiEnveloppe<object>
             {
@@ -106,7 +106,7 @@ namespace SwaggerDoc.Enveloppe
         /// <returns></returns>
         public static IActionResult BadRequestEnveloppe(object? result, ModelStateDictionary modelState)
         {
-            var apiEnveloppe = new ApiEnveloppe<object>
+            var apiEnveloppe = new ApiEnveloppe<object?>
             {
                 Messages = new List<Message>(),
                 Result = result

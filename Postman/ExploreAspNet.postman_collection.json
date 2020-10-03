@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "227580cb-7829-47b9-9993-2fd9aec3b756",
+		"name": "ExploreAspNet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "200",
+			"item": [
+				{
+					"name": "GetTypeString",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3aabb395-9d11-41fc-801e-b7c5a01f34e9",
+								"exec": [
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"System.String\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Types/String",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Types",
+								"String"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "GetTypeString",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/Types/String",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"Types",
+										"String"
+									]
+								}
+							},
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{ \"System.String\" }"
+						}
+					]
+				},
+				{
+					"name": "Afficher hello world",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ebb83fb5-9e10-4139-bb06-c8556f555f23",
+								"exec": [
+									"pm.test(\"Le resultat est \\\"Hello world!\\\"\", () => {\r",
+									"    var reponse = JSON.parse(pm.response.body);\r",
+									"\r",
+									"    reponse.result.to.be(\"Hello world!\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"afficher \\\"hello world!\\\"\"\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/Programming",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Programming"
+							]
+						},
+						"description": "Test de l'api de programmation"
+					},
+					"response": []
+				}
+			],
+			"description": "Requête retournant un code 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "452e6901-725f-460f-9108-e7d9cdaaad60",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(pm.test.name + \" status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

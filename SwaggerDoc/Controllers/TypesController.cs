@@ -39,7 +39,7 @@ namespace SwaggerDoc.Controllers
         /// <param name="name">Le nom du type doit contenir</param>
         /// <returns></returns>
         [ProducesResponseType(200, Type = typeof(ApiEnveloppe<Type>))]
-        [ProducesResponseType(404, Type = typeof(ApiEnveloppe404))]
+        [ProducesResponseType(404, Type = typeof(ApiEnveloppe<object>))]
         [HttpGet("{name}")]
         [TypeNameValidator(Order = int.MinValue + 100)]
         public IActionResult Get(string name)
@@ -55,7 +55,7 @@ namespace SwaggerDoc.Controllers
         /// <returns></returns>
         [HttpGet("Mappers")]
         [ProducesResponseType(200, Type = typeof(ApiEnveloppe<List<string>>))]
-        [ProducesResponseType(404, Type = typeof(ApiEnveloppe404))]
+        [ProducesResponseType(404, Type = typeof(ApiEnveloppe<object>))]
         public IActionResult TypesWithMapper(string name)
             => Enveloppe(AppDomain.CurrentDomain
                 .GetAssemblies()
@@ -77,7 +77,7 @@ namespace SwaggerDoc.Controllers
             }
         }
 
-        private IActionResult Enveloppe(object result)
+        private IActionResult Enveloppe(object? result)
         {
             if (result != default)
             {

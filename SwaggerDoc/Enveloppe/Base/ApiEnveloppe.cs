@@ -3,6 +3,7 @@ using SwaggerDoc.Enveloppe.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace SwaggerDoc.Enveloppe
@@ -31,6 +32,8 @@ namespace SwaggerDoc.Enveloppe
         /// Donnée utile
         /// </summary>
         public virtual T Result { get; set; }
+
+        public HttpStatusCode HttpStatusCode { get; set; }
     }
 
     /// <summary>

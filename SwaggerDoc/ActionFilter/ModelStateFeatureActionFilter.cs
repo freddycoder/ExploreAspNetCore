@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using SwaggerDoc.Services;
+using SwaggerDoc.HttpContextFeature;
 
 namespace SwaggerDoc.ActionFilter
 {

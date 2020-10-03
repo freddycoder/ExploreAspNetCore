@@ -43,6 +43,7 @@ namespace SwaggerDoc.ActionFilter
             {
                 enveloppe.TrackingId = apiContexte.TrackingId;
                 enveloppe.TransactionId = apiContexte.TransactionId;
+                enveloppe.HttpStatusCode = (System.Net.HttpStatusCode)context.HttpContext.Response.StatusCode;
             }
         }
     }

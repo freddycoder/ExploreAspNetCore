@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace SwaggerDoc.Enveloppe.Base
@@ -16,6 +17,11 @@ namespace SwaggerDoc.Enveloppe.Base
         /// L'id de corréaltion de tracking
         /// </summary>
         public Guid TrackingId { get; set; }
+
+        /// <summary>
+        /// Le code Http
+        /// </summary>
+        public HttpStatusCode HttpStatusCode { get; set; }
 
         /// <summary>
         /// Liste de message relier à la transaction

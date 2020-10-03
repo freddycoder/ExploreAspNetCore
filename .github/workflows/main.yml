@@ -19,7 +19,7 @@ jobs:
 
       # Build the image
       - name: Docker build
-        run: docker build -t swaggerdoc ./SwaggerDoc
+        run: docker build -t swaggerdoc .
 
       # Push the image
       - name: Docker push

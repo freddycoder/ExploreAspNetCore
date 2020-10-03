@@ -37,6 +37,8 @@ namespace SwaggerDoc.ActionFilter
         /// <param name="context"></param>
         public void OnActionExecuted(ActionExecutedContext context)
         {
+            if (apiContexte is null) throw new ApplicationException($"At this point, {nameof(apiContexte)} should not be null.");
+
             var result = context.Result;
 
             if (result is ObjectResult objectResult && objectResult.Value is IApiEnveloppe enveloppe)

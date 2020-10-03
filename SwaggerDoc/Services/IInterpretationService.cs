@@ -1,6 +1,6 @@
 ﻿using HLHML;
 using Microsoft.AspNetCore.Http;
-using SwaggerDoc.HttpContextFeature;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.IO;
 using System.Threading;
@@ -8,8 +8,14 @@ using System.Threading.Tasks;
 
 namespace SwaggerDoc.Services
 {
+    /// <summary>
+    /// Interface offrant une fonctionnaité d'interpretation de <see cref="string"/>
+    /// </summary>
     public interface IInterpretationService
     {
+        /// <summary>
+        /// Interpreter la chaine représentant un programme, une expression, etc.
+        /// </summary>
         Task<string> Interprete(string program);
     }
 
@@ -39,9 +45,9 @@ namespace SwaggerDoc.Services
             }
             catch (Exception e)
             {
-                var actionContextAccessor = _contextAccessor.HttpContext.Features.Get<ModelStateFeature>();
+                var modelstate = _contextAccessor.HttpContext.Features.Get<ModelStateDictionary>();
 
-                actionContextAccessor.ModelState.AddModelError("text", e.Message);
+                modelstate.AddModelError("text", e.Message);
 
                 throw;
             }

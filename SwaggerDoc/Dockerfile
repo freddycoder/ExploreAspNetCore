@@ -2,11 +2,11 @@
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
-COPY SwaggerDoc/*.csproj ./
+COPY ./SwaggerDoc/SwaggerDoc.csproj ./
 RUN dotnet restore
 
 # Copy everything else and build
-COPY SwaggerDoc/* ./
+COPY ./SwaggerDoc/* ./
 RUN dotnet publish -c Release -o out
 
 # Build runtime image

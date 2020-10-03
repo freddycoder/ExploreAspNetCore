@@ -35,12 +35,19 @@ jobs:
       - name: Docker push
         run: docker push $REGISTRY_HOSTNAME/$IMAGE_NAME:$GITHUB_RUN_ID
 
+      # Connect to Azure Kubernetes
       - name: Azure Kubernetes set context
         uses: Azure/aks-set-context@v1
         with:
           creds: '${{ secrets.AZURE_CREDENTIALS }}'
           resource-group: 'webapidesign'
           cluster-name: 'kubem'
+
+      # Replace variable in kubernetes file
+      - name: Replace variable in k8s file
+        uses: falnyr/replace-env-vars-action@master
+        with:
+          filename: kubernetes.yaml
 
       # Deploy to kubernetes
       - name: Kubectl apply

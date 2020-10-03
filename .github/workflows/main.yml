@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Login into acr
+      - name: Login into ACR
+        run: docker login freddycontainers.azurecr.io -u ${{ secrets.registryUsername }} -p ${{ secrets.registryPassword }}
+
+      # Build the image
+      - name: Docker build
+        run: docker build -t swaggerdoc .
+
+      # Push the image
+      - name: Docker push
+        run: docker push freddycontainers.azurecr.io/swaggerdoc/exploreaspnet:$GITHUB_RUN_ID
+

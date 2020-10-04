@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using static SwaggerDoc.Properties.Constantes.AstNetCoreEnvironnement;
+using static SwaggerDoc.Properties.Constantes.RedisEnvironnement;
 
 namespace SwaggerDoc.Extension
 {
@@ -27,7 +28,7 @@ namespace SwaggerDoc.Extension
             {
                 services.AddDistributedRedisCache(o =>
                 {
-                    o.Configuration = "localhost";
+                    o.Configuration = Environment.GetEnvironmentVariable(NomCleRedisHostName); ;
                 });
             }
 

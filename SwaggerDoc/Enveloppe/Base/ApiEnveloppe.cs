@@ -45,7 +45,7 @@ namespace SwaggerDoc.Enveloppe
         /// <summary>
         /// Donnée utile
         /// </summary>
-        public virtual T Result { get; set; }
+        public virtual dynamic? Result { get; set; }
     }
 
     /// <summary>

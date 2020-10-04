@@ -43,5 +43,15 @@ namespace SwaggerDoc.Properties
             /// </summary>
             public const string Developement = "Development";
         }
+        /// <summary>
+        /// Classe de constantes relié à la varaible d'environnement ASPNETCORE_ENVIRONMENT
+        /// </summary>
+        public static class RedisEnvironnement
+        {
+            /// <summary>
+            /// Nom de la clé de la variable d'environnement REDIS_HOSTNAME
+            /// </summary>
+            public const string NomCleRedisHostName = "REDIS_HOSTNAME";
+        }
     }
 }

@@ -6,8 +6,17 @@ using SwaggerDoc.Enveloppe.Base;
 
 namespace SwaggerDoc.Extension
 {
+    /// <summary>
+    /// Permet d'ajouter un message à l'interieur d'un apiEnveloppe qui est à l'intérieur d'un IActionResult.
+    /// </summary>
     public static class ActionResultExtension
     {
+        /// <summary>
+        /// ermet d'ajouter des messages à l'interieur d'un apiEnveloppe qui est à l'intérieur d'un IActionResult.
+        /// </summary>
+        /// <param name="actionResult"></param>
+        /// <param name="message">Le message à ajouter</param>
+        /// <returns></returns>
         public static IActionResult WithMessage(this IActionResult actionResult, Message message)
         {
             if (actionResult is null) throw new ArgumentNullException(nameof(actionResult));

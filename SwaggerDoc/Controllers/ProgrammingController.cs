@@ -16,6 +16,10 @@ namespace SwaggerDoc.Controllers
     {
         private IInterpretationService _interpretationService;
 
+        /// <summary>
+        /// Constructeur d'initialisation avec les dépendances requise pour le contrôlleur
+        /// </summary>
+        /// <param name="interpretationService"></param>
         public ProgrammingController(IInterpretationService interpretationService)
         {
             _interpretationService = interpretationService;
@@ -33,7 +37,7 @@ namespace SwaggerDoc.Controllers
         {
             try
             {
-                return OkEnveloppe(await _interpretationService.Interprete(text.Text));
+                return OkEnveloppe(await _interpretationService.Interprete(text.Text ?? string.Empty));
             }
             catch
             {

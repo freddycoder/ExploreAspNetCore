@@ -11,17 +11,24 @@ using System.Text;
 
 namespace SwaggerDoc.ActionFilter
 {
+    /// <summary>
+    /// Action filter permettant de journliser les appels à l'api. En journalisant les intrants et les extrants
+    /// </summary>
     public class JournalisationTransactionActionFilter : IActionFilter
     {
         private JournalTransaction? _journalTransaction;
         private ApiContexte? _apiContexte;
         private ILogger<JournalisationTransactionActionFilter>? _logger;
 
+        /// <inheritdoc />
         public void OnActionExecuting(ActionExecutingContext context)
         {
             _logger = context.HttpContext.RequestServices.GetService(typeof(ILogger<JournalisationTransactionActionFilter>)) as ILogger<JournalisationTransactionActionFilter>;
             _journalTransaction = context.HttpContext.RequestServices.GetService(typeof(JournalTransaction)) as JournalTransaction;
             _apiContexte = context.HttpContext.RequestServices.GetService(typeof(ApiContexte)) as ApiContexte;
+
+            if (_apiContexte is null) throw new ApplicationException($"At this point, {nameof(_apiContexte)} should not be null.");
+            if (_journalTransaction is null) throw new ApplicationException($"At this point, {nameof(_journalTransaction)} should not be null.");
 
             var transaction = new Transaction
             {
@@ -42,11 +49,15 @@ namespace SwaggerDoc.ActionFilter
             }
         }
 
+        /// <inheritdoc />
         public void OnActionExecuted(ActionExecutedContext context)
         {
             _logger = context.HttpContext.RequestServices.GetService(typeof(ILogger<JournalisationTransactionActionFilter>)) as ILogger<JournalisationTransactionActionFilter>;
             _journalTransaction = context.HttpContext.RequestServices.GetService(typeof(JournalTransaction)) as JournalTransaction;
             _apiContexte = context.HttpContext.RequestServices.GetService(typeof(ApiContexte)) as ApiContexte;
+
+            if (_apiContexte is null) throw new ApplicationException($"At this point, {nameof(_apiContexte)} should not be null.");
+            if (_journalTransaction is null) throw new ApplicationException($"At this point, {nameof(_journalTransaction)} should not be null.");
 
             if (_journalTransaction.TryGetValue(_apiContexte.TransactionId, out var transactionOrigin))
             {
@@ -85,7 +96,7 @@ namespace SwaggerDoc.ActionFilter
         {
             if (request.BodyReader.TryRead(out ReadResult readResult))
             {
-                return readResult.ToString();
+                return readResult.ToString() ?? string.Empty;
             }
 
             return string.Empty;

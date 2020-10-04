@@ -28,11 +28,16 @@ namespace SwaggerDoc.Controllers
                 return NotFoundEnveloppe(personne);
             }
 
-            personne.Xml = Properties.Constantes.PersonXml.Format(personne);
+            personne.Xml = Properties.Constantes.PersonXml.Format(personne, bindingFlags: System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
 
-            _logger.LogDebug("$Xml$".Format(personne));
+            _logger.LogDebug("$Xml$".Format(personne, bindingFlags: System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic));
 
-            return OkEnveloppe(personne).WithMessage(new Message { Code = "Xml", Id = "1", Severity = "Information", Text = "$Xml$".Format(personne) });
+            return OkEnveloppe(personne).WithMessage(new Message 
+            { 
+                Code = "Xml", Id = "1", 
+                Severity = "Information", 
+                Text = "$Xml$".Format(personne, bindingFlags: System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic) 
+            });
         }
     }
 }

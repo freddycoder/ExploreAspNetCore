@@ -2,6 +2,9 @@
 
 namespace SwaggerDoc.Controllers
 {
+    /// <summary>
+    /// Attribue pour valider que l'objet de type <see cref="int"/> est plus grand qu'une valeur minimale.
+    /// </summary>
     public class MinAttribute : ValidationAttribute
     {
         private int _min;
@@ -15,6 +18,7 @@ namespace SwaggerDoc.Controllers
             _min = min;
         }
 
+        /// <inheritdoc />
         public override bool IsValid(object value)
         {
             return (int)value > _min;

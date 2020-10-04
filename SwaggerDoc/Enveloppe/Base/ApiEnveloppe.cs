@@ -1,10 +1,7 @@
-﻿using FluentValidation.Results;
-using SwaggerDoc.Enveloppe.Base;
+﻿using SwaggerDoc.Enveloppe.Base;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace SwaggerDoc.Enveloppe
 {
@@ -26,13 +23,28 @@ namespace SwaggerDoc.Enveloppe
         /// <summary>
         /// Liste de message relier à la transaction
         /// </summary>
-        public List<Message> Messages { get; set; }
+        public List<Message>? Messages
+        {
+            get
+            {
+                return _messages;
+            }
+            set
+            {
+                _messages = value;
+            }
+        }
+
+        private List<Message>? _messages;
 
         /// <summary>
         /// Donnée utile
         /// </summary>
         public virtual T Result { get; set; }
 
+        /// <summary>
+        /// Le code http
+        /// </summary>
         public HttpStatusCode HttpStatusCode { get; set; }
     }
 
@@ -44,18 +56,18 @@ namespace SwaggerDoc.Enveloppe
         /// <summary>
         /// Id du message
         /// </summary>
-        public string Id { get; set; }
+        public string? Id { get; set; }
         /// <summary>
         /// Code du message
         /// </summary>
-        public string Code { get; set; }
+        public string? Code { get; set; }
         /// <summary>
         /// Sévérité du message
         /// </summary>
-        public string Severity { get; set; }
+        public string? Severity { get; set; }
         /// <summary>
         /// Informations sur le message
         /// </summary>
-        public string Text { get; set; }
+        public string? Text { get; set; }
     }
 }

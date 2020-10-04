@@ -6,11 +6,9 @@ namespace SwaggerDoc.Extension
 {
     public static class FormatExtension
     {
-        public static readonly BindingFlags BindingFlags = BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public;
-
-        public static string Format<T>(this string gabarit, T model, char separateur = '$')
+        public static string Format<T>(this string gabarit, T model, char separateur = '$', BindingFlags bindingFlags = BindingFlags.Public)
         {
-            if (gabarit is null) return null;
+            if (gabarit is null) return string.Empty;
             var lexer = new Lexer(separateur, gabarit);
             var chaineFinale = new StringBuilder();
             Token token = lexer.GetNextToken();
@@ -23,7 +21,7 @@ namespace SwaggerDoc.Extension
                 }
                 else
                 {
-                    chaineFinale.Append(typeof(T).GetProperty(token.Value, BindingFlags)?.GetValue(model).ToString());
+                    chaineFinale.Append(typeof(T).GetProperty(token.Value, bindingFlags)?.GetValue(model)?.ToString());
                 }
 
                 token = lexer.GetNextToken();

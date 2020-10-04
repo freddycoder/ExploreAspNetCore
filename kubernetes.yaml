@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: swaggerdoc
-        image: freddycontainers.azurecr.io/swaggerdoc:#{GITHUB_RUN_ID}
+        image: #{REGISTRY_HOSTNAME}/#{IMAGE_NAME}:#{GITHUB_RUN_ID}
         ports:
         - containerPort: 80

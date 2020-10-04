@@ -2,8 +2,14 @@
 {
     public class Token
     {
-        public TokenType TokenType;
-        public string Value;
+        public Token(TokenType type, string value)
+        {
+            TokenType = type;
+            Value = value;
+        }
+
+        public TokenType TokenType { get; }
+        public string Value { get; }
     }
 
     public enum TokenType

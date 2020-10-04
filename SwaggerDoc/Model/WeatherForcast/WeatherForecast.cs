@@ -25,6 +25,6 @@ namespace SwaggerDoc
         /// <summary>
         /// Informations supplémentaire
         /// </summary>
-        public string Summary { get; set; }
+        public string? Summary { get; set; }
     }
 }

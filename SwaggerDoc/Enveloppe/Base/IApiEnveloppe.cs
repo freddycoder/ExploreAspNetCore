@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace SwaggerDoc.Enveloppe.Base
 {
+    /// <summary>
+    /// Interface représentant une ApiEnveloppe
+    /// </summary>
     public interface IApiEnveloppe
     {
         /// <summary>
@@ -26,6 +27,6 @@ namespace SwaggerDoc.Enveloppe.Base
         /// <summary>
         /// Liste de message relier à la transaction
         /// </summary>
-        public List<Message> Messages { get; set; }
+        public List<Message>? Messages { get; set; }
     }
 }

@@ -9,6 +9,7 @@ namespace SwaggerDoc.Validator.Types
     /// </summary>
     public class TypeNameValidatorAttribute : ActionFilterAttribute
     {
+        /// <inheritdoc />
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             var name = context.RouteData.Values["name"] as string;

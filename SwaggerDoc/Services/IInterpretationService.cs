@@ -19,15 +19,23 @@ namespace SwaggerDoc.Services
         Task<string> Interprete(string program);
     }
 
+    /// <summary>
+    /// Implémentation de <see cref="IInterpretationService"/> utilisant le package nuget HLHML pour interpreter le programme.
+    /// </summary>
     public class InterpretationService : IInterpretationService
     {
         private readonly IHttpContextAccessor _contextAccessor;
 
+        /// <summary>
+        /// Constructeur par initialisation avec les dépendances requise pour l'execution du services.
+        /// </summary>
+        /// <param name="actionContextAccessor"></param>
         public InterpretationService(IHttpContextAccessor actionContextAccessor)
         {
             _contextAccessor = actionContextAccessor;
         }
 
+        /// <inheritdoc />
         public async Task<string> Interprete(string program)
         {
             try

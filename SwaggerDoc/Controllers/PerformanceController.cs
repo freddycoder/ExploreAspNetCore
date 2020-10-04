@@ -27,7 +27,7 @@ namespace SwaggerDoc.Controllers
 
             for (int i = 0; i < nbFormat; i++) 
             { 
-                Properties.Constantes.PersonXml.Format(PersonneRepo[_rand.Next(PersonneRepo.Count)]);
+                Properties.Constantes.PersonXml.Format(PersonneRepo[_rand.Next(PersonneRepo.Count)], bindingFlags: System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
             }
 
             chrono.Stop();

@@ -55,4 +55,6 @@ jobs:
       - name: Kubectl apply
         run: |
           kubectl config current-context
-          kubectl apply -f kubernetes.yaml
+          kubectl apply -k ./Infrastructure/
+          kubectl expose deployment swaggerdoc-deployment --type=LoadBalancer --name=swaggerdoc-service
+          kubectl describe services swaggerdoc-service

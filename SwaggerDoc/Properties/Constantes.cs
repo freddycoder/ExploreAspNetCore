@@ -27,5 +27,21 @@ namespace SwaggerDoc.Properties
 
             return sb.ToString();
         }
+
+        /// <summary>
+        /// Classe de constantes relié à la varaible d'environnement ASPNETCORE_ENVIRONMENT
+        /// </summary>
+        public static class AstNetCoreEnvironnement
+        {
+            /// <summary>
+            /// Nom de la clé de la variable d'environnement ASPNETCORE_ENVIRONMENT
+            /// </summary>
+            public const string NomCle = "ASPNETCORE_ENVIRONMENT";
+
+            /// <summary>
+            /// Nom de l'environnement lorsque la variable représente l'environnement Development
+            /// </summary>
+            public const string Developement = "Development";
+        }
     }
 }

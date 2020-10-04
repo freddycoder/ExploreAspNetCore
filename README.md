@@ -93,3 +93,7 @@ public static IActionResult InvalidModelStateEnveloppeFactory(ActionContext acti
 ## Utiliser un enveloppe de base avec des paramètres géré par un ActionFilter
 
 Voir le fichier ApiContextActionFilter.cs et le fichier Startup.cs
+
+## Exposer un services kubernetes
+
+https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/

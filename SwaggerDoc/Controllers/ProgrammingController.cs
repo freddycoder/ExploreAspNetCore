@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.Memory;
 using SwaggerDoc.Enveloppe;
 using SwaggerDoc.Model.Programming;
 using SwaggerDoc.Services;
+using System;
 using System.Threading.Tasks;
 using static SwaggerDoc.Enveloppe.ApiEnveloppeFactory;
 
@@ -15,14 +18,17 @@ namespace SwaggerDoc.Controllers
     public class ProgrammingController : Controller
     {
         private IInterpretationService _interpretationService;
+        private readonly IDistributedCache _memoryCache;
 
         /// <summary>
         /// Constructeur d'initialisation avec les dépendances requise pour le contrôlleur
         /// </summary>
         /// <param name="interpretationService"></param>
-        public ProgrammingController(IInterpretationService interpretationService)
+        /// <param name="memoryCache"></param>
+        public ProgrammingController(IInterpretationService interpretationService, IDistributedCache memoryCache)
         {
             _interpretationService = interpretationService;
+            _memoryCache = memoryCache;
         }
 
         /// <summary>

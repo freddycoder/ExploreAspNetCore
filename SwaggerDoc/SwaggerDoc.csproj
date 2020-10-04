@@ -15,6 +15,7 @@
     <PackageReference Include="HLHML" Version="1.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="5.5.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.5.1" />

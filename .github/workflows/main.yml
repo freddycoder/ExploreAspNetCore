@@ -49,7 +49,7 @@ jobs:
         with:
           tokenPrefix: '#{'
           tokenSuffix: '}'
-          files: 'kubernetes.yaml'
+          files: './Infrastructure/swaggerdoc.yaml'
 
       # Deploy to kubernetes
       - name: Kubectl apply

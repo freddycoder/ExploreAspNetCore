@@ -9,6 +9,9 @@ using System.Collections.Immutable;
 
 namespace SwaggerDoc.Controllers
 {
+    /// <summary>
+    /// Controlleur pour tester les performances de l'extension string.Format
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     public class PerformanceController : Controller
@@ -17,6 +20,11 @@ namespace SwaggerDoc.Controllers
         private static readonly ImmutableList<Personne> PersonneRepo = _fixture.CreateMany<Personne>(1000).ToImmutableList();
         private static readonly Random _rand = new Random();
 
+        /// <summary>
+        ///  Action pour tester les performances de l'extension string.Format
+        /// </summary>
+        /// <param name="nbFormat"></param>
+        /// <returns></returns>
         [HttpPost("nbFormat")]
         [ProducesResponseType(200, Type = typeof(ApiEnveloppe<PerformanceResult>))]
         public IActionResult FormatT([Min(1)]int nbFormat)

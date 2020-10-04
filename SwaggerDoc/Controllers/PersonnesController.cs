@@ -7,17 +7,29 @@ using static SwaggerDoc.Enveloppe.ApiEnveloppeFactory;
 
 namespace SwaggerDoc.Controllers
 {
+    /// <summary>
+    /// Controller pour obtenir des personnes
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     public class PersonnesController
     {
         private ILogger<PersonnesController> _logger;
 
+        /// <summary>
+        /// Constructeur avec les dépendances requise pour le service.
+        /// </summary>
+        /// <param name="logger"></param>
         public PersonnesController(ILogger<PersonnesController> logger)
         {
             _logger = logger;
         }
 
+        /// <summary>
+        /// Action pour obtenir une personne
+        /// </summary>
+        /// <param name="personne"></param>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(ApiEnveloppe<Personne>))]
         [ProducesResponseType(404, Type = typeof(ApiEnveloppe<object>))]

@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace SwaggerDoc.Enveloppe
 {
@@ -12,6 +7,7 @@ namespace SwaggerDoc.Enveloppe
     /// </summary>
     public class ApiEnveloppe422 : ApiEnveloppe<object>
     {
+        /// <inheritdoc />
         [JsonProperty(PropertyName = "erreurs", Order = 4)]
         public override object Result { get => base.Result; set => base.Result = value; }
     }

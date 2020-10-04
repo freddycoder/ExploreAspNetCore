@@ -21,7 +21,7 @@ jobs:
 
       # Login into acr
       - name: Login into ACR
-        run: docker login $REGISTRY_HOSTNAME -u ${{ secrets.registryUsername }} -p ${{ secrets.registryPassword }}
+        run: echo ${{ secrets.registryPassword }} | docker login $REGISTRY_HOSTNAME -u ${{ secrets.registryUsername }} --password-stdin
 
       # Build the image
       - name: Docker build
@@ -55,6 +55,7 @@ jobs:
       - name: Kubectl apply
         run: |
           kubectl config current-context
-          kubectl apply -k ./Infrastructure/
+          kubectl apply -f ./Infrastructure/redis.taml
+          kubectl apply -f ./Infrastructure/swaggerdoc.taml
           kubectl expose deployment swaggerdoc-deployment --type=LoadBalancer --name=swaggerdoc-service
           kubectl describe services swaggerdoc-service

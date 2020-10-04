@@ -6,17 +6,28 @@ using System.Linq;
 
 namespace SwaggerDoc.Controllers
 {
+    /// <summary>
+    /// Controlleur permettant d'accéder au transaction de l'api
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     public class TransactionsController : Controller
     {
         private JournalTransaction _journalTransaction;
 
+        /// <summary>
+        /// Constructeur par initialisation avec les dépendances requise pour construire le contrôlleur
+        /// </summary>
+        /// <param name="journalTransaction"></param>
         public TransactionsController(JournalTransaction journalTransaction)
         {
             _journalTransaction = journalTransaction;
         }
 
+        /// <summary>
+        /// Ontenir tout les transaction de l'api
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(List<Transaction>))]
         public IActionResult GetAll()
@@ -24,6 +35,11 @@ namespace SwaggerDoc.Controllers
             return Ok(_journalTransaction.AsEnumerable().Select(kv => kv.Value));
         }
 
+        /// <summary>
+        /// Obtenir une transaction selon un TransactionId
+        /// </summary>
+        /// <param name="id">L'id de la transaction</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         [ProducesResponseType(200, Type = typeof(Transaction))]
         [ProducesResponseType(400, Type = typeof(BadRequestObjectResult))]

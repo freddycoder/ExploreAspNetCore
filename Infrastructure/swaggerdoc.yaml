@@ -19,3 +19,6 @@ spec:
         image: #{REGISTRY_HOSTNAME}/#{IMAGE_NAME}:#{GITHUB_RUN_ID}
         ports:
         - containerPort: 80
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Production"

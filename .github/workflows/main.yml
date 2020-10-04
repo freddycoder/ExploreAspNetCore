@@ -55,5 +55,4 @@ jobs:
       - name: Kubectl apply
         run: |
           kubectl config current-context
-          kubectl apply -f ./Infrastructure/redis.yaml
           kubectl apply -f ./Infrastructure/swaggerdoc.yaml

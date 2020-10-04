@@ -21,6 +21,11 @@ namespace SwaggerDoc.Enveloppe
         public Guid TrackingId { get; set; }
 
         /// <summary>
+        /// Le code http
+        /// </summary>
+        public HttpStatusCode HttpStatusCode { get; set; }
+
+        /// <summary>
         /// Liste de message relier à la transaction
         /// </summary>
         public List<Message>? Messages
@@ -41,11 +46,6 @@ namespace SwaggerDoc.Enveloppe
         /// Donnée utile
         /// </summary>
         public virtual T Result { get; set; }
-
-        /// <summary>
-        /// Le code http
-        /// </summary>
-        public HttpStatusCode HttpStatusCode { get; set; }
     }
 
     /// <summary>

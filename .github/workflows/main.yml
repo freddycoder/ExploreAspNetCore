@@ -55,7 +55,7 @@ jobs:
       - name: Kubectl apply
         run: |
           kubectl config current-context
-          kubectl apply -f ./Infrastructure/redis.taml
-          kubectl apply -f ./Infrastructure/swaggerdoc.taml
+          kubectl apply -f ./Infrastructure/redis.yaml
+          kubectl apply -f ./Infrastructure/swaggerdoc.yaml
           kubectl expose deployment swaggerdoc-deployment --type=LoadBalancer --name=swaggerdoc-service
           kubectl describe services swaggerdoc-service

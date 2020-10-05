@@ -1,5 +1,23 @@
 # ExploreAspNetCore
-Un projet pour explorer les api asp.net core et la documentation swagger
+Un projet pour explorer les api asp.net core, la documentation swagger, docker, kubernetes, redis, et les github actions.
+
+Table des matières
+=================
+
+<!--ts-->
+   * [gh-md-toc](#gh-md-toc)
+   * [Table of contents](#table-of-contents)
+   * [Exemple de code c#](#exemple)
+      * [Configuration nécessaire pour que les enums soit vue comme des string](#enumString)
+      * [Configuration utilisation de Fluent.Validation](#local-files)
+      * [Valider les paramètres de route](#remote-files)
+      * [Retourner des codes 422 lors d'échec de validation des paramètres](#multiple-files)
+      * [Utiliser un enveloppe de base avec des paramètres géré par un ActionFilter](#combo)
+   * [Kubernetes](#tests)
+      * [Exposer un services kubernetes](#enumString)
+<!--te-->
+
+# Exemple de code c#
 
 ## Configuration nécessaire pour que les enums soit vue comme des string
 
@@ -94,6 +112,11 @@ public static IActionResult InvalidModelStateEnveloppeFactory(ActionContext acti
 
 Voir le fichier ApiContextActionFilter.cs et le fichier Startup.cs
 
+# Kubernetes
+
 ## Exposer un services kubernetes
 
-https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/
+```
+kubectl expose deployment swaggerdoc-deployment --type=LoadBalancer --name=swaggerdoc-service
+```
+source : https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/

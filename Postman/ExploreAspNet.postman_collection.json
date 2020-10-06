@@ -28,12 +28,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/Types/String",
+							"raw": "{{url}}/Types/String",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"api",
 								"Types",
 								"String"
 							]
@@ -73,10 +72,10 @@
 							"script": {
 								"id": "ebb83fb5-9e10-4139-bb06-c8556f555f23",
 								"exec": [
-									"pm.test(\"Le resultat est \\\"Hello world!\\\"\", () => {\r",
-									"    var reponse = JSON.parse(pm.response.body);\r",
+									"var retour = pm.response.json();\r",
 									"\r",
-									"    reponse.result.to.be(\"Hello world!\");\r",
+									"pm.test(\"Le resultat est \\\"Hello world!\\\"\", () => {\r",
+									"    pm.expect(retour.result).to.eq(\"Hello world!\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -109,6 +108,42 @@
 							]
 						},
 						"description": "Test de l'api de programmation"
+					},
+					"response": []
+				},
+				{
+					"name": "GetAstNetCoreEnvrionment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c261c9c3-148e-48bc-952e-9fc4328f9a61",
+								"exec": [
+									"var retour = pm.response.json();\r",
+									"\r",
+									"if (pm.environment.name == \"kubem\") {\r",
+									"    pm.test(\"Environnement is Production\", () => {\r",
+									"        pm.expect(retour.result).to.eq(\"Production\");\r",
+									"    })\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/Configuration/GetAspNetCoreEnvironnement",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Configuration",
+								"GetAspNetCoreEnvironnement"
+							]
+						}
 					},
 					"response": []
 				}

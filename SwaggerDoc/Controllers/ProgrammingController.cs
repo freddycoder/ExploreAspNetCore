@@ -5,6 +5,7 @@ using SwaggerDoc.Enveloppe;
 using SwaggerDoc.Model.Programming;
 using SwaggerDoc.Services;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using static SwaggerDoc.Enveloppe.ApiEnveloppeFactory;
 
@@ -50,5 +51,42 @@ namespace SwaggerDoc.Controllers
                 return BadRequestEnveloppe(null, ModelState);
             }
         }
+
+        /// <summary>
+        /// Obtenir le dictionnaire des termes de HLHML
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult ObtenirDictionaireDesTermes()
+        {
+            var d = new List<EntreeDictionnaire>(HLHML.Dictionnaire.DictionnaireTermeConnue.TermesConnues.Count);
+            
+            foreach (var t in HLHML.Dictionnaire.DictionnaireTermeConnue.TermesConnues)
+            {
+                d.Add(new EntreeDictionnaire
+                {
+                    Cle = t.Key,
+                    Terme = t.Value
+                });
+            }
+
+            return OkEnveloppe(d);
+        }
+    }
+
+    /// <summary>
+    /// Représente un entrée dans le dictionnaire des termes
+    /// </summary>
+    public class EntreeDictionnaire
+    {
+        /// <summary>
+        /// La clé du terme
+        /// </summary>
+        public string? Cle { get; set; }
+
+        /// <summary>
+        /// Le terme et les informations relié
+        /// </summary>
+        public HLHML.Dictionnaire.Terme? Terme { get; set; }
     }
 }

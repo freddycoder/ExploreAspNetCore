@@ -34,5 +34,30 @@ namespace SwaggerDoc.Extension
 
             return services;
         }
+
+        /// <summary>
+        /// Classe pour représenter un identificant unique
+        /// </summary>
+        public class UniqueIdentifier
+        {
+            /// <summary>
+            /// Constructeur par défaut pour initialiser les membres
+            /// </summary>
+            public UniqueIdentifier()
+            {
+                Id = Guid.NewGuid().ToString();
+                DateTime = DateTime.Now;
+            }
+
+            /// <summary>
+            /// L'identificant unique
+            /// </summary>
+            public string Id { get; set; }
+
+            /// <summary>
+            /// La date de création de l'identifiant unique
+            /// </summary>
+            public DateTime DateTime { get; set; }
+        }
     }
 }

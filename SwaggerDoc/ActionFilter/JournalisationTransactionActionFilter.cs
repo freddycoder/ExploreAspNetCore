@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using SwaggerDoc.Controllers;
 using SwaggerDoc.Model;
 using System;
 using System.IO.Pipelines;
@@ -32,7 +33,6 @@ namespace SwaggerDoc.ActionFilter
 
             var transaction = new Transaction
             {
-                Body = GetBody(context.HttpContext.Request),
                 Debut = DateTime.Now,
                 QueryString = context.HttpContext.Request.QueryString.ToString(),
                 RouteDate = GetRouteData(context.HttpContext.Request.RouteValues),
@@ -65,7 +65,7 @@ namespace SwaggerDoc.ActionFilter
 
                 transaction.Fin = DateTime.Now;
                 transaction.Durée = (transaction.Fin - transaction.Debut).Value.Ticks;
-                transaction.Reponse = JsonConvert.SerializeObject(context.Result);
+                transaction.Reponse = context.Controller is TransactionsController ? default : JsonConvert.SerializeObject(context.Result);
 
                 var result = _journalTransaction.TryUpdate(_apiContexte.TransactionId, transaction, transactionOrigin);
 
@@ -90,16 +90,6 @@ namespace SwaggerDoc.ActionFilter
             }
 
             return sb.ToString();
-        }
-
-        private string GetBody(HttpRequest request)
-        {
-            if (request.BodyReader.TryRead(out ReadResult readResult))
-            {
-                return readResult.ToString() ?? string.Empty;
-            }
-
-            return string.Empty;
         }
     }
 }

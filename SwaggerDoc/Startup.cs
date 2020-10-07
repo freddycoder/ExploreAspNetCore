@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using SwaggerDoc.Extension;
 using SwaggerDoc.Model;
 using SwaggerDoc.Services;
+using static SwaggerDoc.Extension.DistributedCacheExtension;
 
 namespace SwaggerDoc
 {
@@ -38,7 +39,8 @@ namespace SwaggerDoc
                     .AddTransient<IInterpretationService, InterpretationService>()
                     .AddCustomController()
                     .AddSwagger()
-                    .AddDistributedCache();
+                    .AddDistributedCache()
+                    .AddSingleton<UniqueIdentifier>();
 
         /// <summary>
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

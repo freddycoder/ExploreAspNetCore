@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 
 namespace SwaggerDoc.Controllers
 {
@@ -13,7 +14,8 @@ namespace SwaggerDoc.Controllers
     [Route("[controller]")]
     public class TransactionsController : Controller
     {
-        private JournalTransaction _journalTransaction;
+        private static PropertyInfo[] TransactionProperties = typeof(Transaction).GetProperties();
+        private readonly JournalTransaction _journalTransaction;
 
         /// <summary>
         /// Constructeur par initialisation avec les dépendances requise pour construire le contrôlleur
@@ -32,7 +34,9 @@ namespace SwaggerDoc.Controllers
         [ProducesResponseType(200, Type = typeof(List<Transaction>))]
         public IActionResult GetAll()
         {
-            return Ok(_journalTransaction.AsEnumerable().Select(kv => kv.Value));
+            IEnumerable<Transaction> transactions = _journalTransaction.AsEnumerable().Select(kv => kv.Value);
+
+            return Ok(transactions);
         }
 
         /// <summary>

@@ -75,7 +75,7 @@
 									"var retour = pm.response.json();\r",
 									"\r",
 									"pm.test(\"Le resultat est \\\"Hello world!\\\"\", () => {\r",
-									"    pm.expect(retour.result).to.eq(\"Hello world!\");\r",
+									"    pm.expect(retour.result).to.eq(\"hello world!\");\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -142,6 +142,24 @@
 							"path": [
 								"Configuration",
 								"GetAspNetCoreEnvironnement"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clap",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/Redis/CallIncrement",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Redis",
+								"CallIncrement"
 							]
 						}
 					},

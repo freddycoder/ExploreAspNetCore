@@ -40,6 +40,17 @@ namespace SwaggerDoc.Controllers
         }
 
         /// <summary>
+        /// Ontenir le nombres de transaction effectuer sur l'api
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [ProducesResponseType(200, Type = typeof(int))]
+        public IActionResult Count()
+        {
+            return Ok(_journalTransaction.Count);
+        }
+
+        /// <summary>
         /// Obtenir une transaction selon un TransactionId
         /// </summary>
         /// <param name="id">L'id de la transaction</param>

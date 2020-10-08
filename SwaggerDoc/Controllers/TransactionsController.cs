@@ -36,7 +36,7 @@ namespace SwaggerDoc.Controllers
         {
             IEnumerable<Transaction> transactions = _journalTransaction.AsEnumerable().Select(kv => kv.Value);
 
-            return Ok(transactions);
+            return Ok(transactions.OrderByDescending(k => k.Debut));
         }
 
         /// <summary>

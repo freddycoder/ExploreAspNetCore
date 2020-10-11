@@ -5,16 +5,16 @@ Table des matières
 =================
 
 <!--ts-->
-   * [gh-md-toc](#gh-md-toc)
    * [Table of contents](#table-of-contents)
    * [Exemple de code c#](#exemple)
       * [Configuration nécessaire pour que les enums soit vue comme des string](#enumString)
-      * [Configuration utilisation de Fluent.Validation](#local-files)
-      * [Valider les paramètres de route](#remote-files)
-      * [Retourner des codes 422 lors d'échec de validation des paramètres](#multiple-files)
-      * [Utiliser un enveloppe de base avec des paramètres géré par un ActionFilter](#combo)
-   * [Kubernetes](#tests)
-      * [Exposer un services kubernetes](#enumString)
+      * [Configuration utilisation de Fluent.Validation](#fluent-validation)
+      * [Valider les paramètres de route](#route-parameter-validation)
+      * [Retourner des codes 422 lors d'échec de validation des paramètres](#422)
+      * [Utiliser un enveloppe de base avec des paramètres géré par un ActionFilter](#action-filter)
+   * [Kubernetes](#kubernetes)
+      * [Creer des credentials pour déployer dans kubernetes](#credentials)
+      * [Exposer un services kubernetes](#expose)
 <!--te-->
 
 # Exemple de code c#
@@ -113,6 +113,14 @@ public static IActionResult InvalidModelStateEnveloppeFactory(ActionContext acti
 Voir le fichier ApiContextActionFilter.cs et le fichier Startup.cs
 
 # Kubernetes
+
+## Creer des credentials pour déployer dans kubernetes
+
+Dans une session Azure Cloud Shell
+```
+az ad sp create-for-rbac --name "myApp" --role contributor --scopes /subscriptions/<SUBSCRIPTION_ID>/resourceGroups/<RESOURCE_GROUP> --sdk-auth
+```
+Source : https://docs.microsoft.com/en-us/azure/aks/kubernetes-action
 
 ## Exposer un services kubernetes
 

@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using System;
 using Microsoft.Extensions.Caching.Distributed;
 using static SwaggerDoc.Extension.DistributedCacheExtension;
+using System.ComponentModel;
+using SwaggerDoc.Enveloppe;
 
 namespace SwaggerDoc.Controllers
 {
@@ -29,23 +31,31 @@ namespace SwaggerDoc.Controllers
         }
 
         /// <summary>
-        /// Retourne la variable d'environnement ASPNETCORE_ENVIRONNEMENT
+        /// Retourne la variable d'environnement demandé
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
-        public IActionResult GetAspNetCoreEnvironnement()
+        [HttpGet("{nomVariable}")]
+        public IActionResult GetEnvrionnementVariable([DefaultValue("REDIS_HOSTNAME")]string nomVariable)
         {
-            return OkEnveloppe(Environment.GetEnvironmentVariable(Properties.Constantes.AstNetCoreEnvironnement.NomCle) ?? string.Empty);
+            var value = Environment.GetEnvironmentVariable(nomVariable);
+
+            if (value is null) return NotFoundEnveloppe(value);
+
+            return OkEnveloppe(value);
         }
 
         /// <summary>
-        /// Retourne le type utiliser pour la cache distribué
+        /// Assigner une valeur à une variable d'environnement
         /// </summary>
+        /// <param name="nomVariable"></param>
+        /// <param name="nouvelleValeur"></param>
         /// <returns></returns>
-        [HttpGet]
-        public IActionResult GetIDistributedCacheType()
+        [HttpPut("{nomVariable}")]
+        public IActionResult SetEnvironnementVariable(string nomVariable, [FromBody] string? nouvelleValeur)
         {
-            return OkEnveloppe(_cache.GetType());
+            Environment.SetEnvironmentVariable(nomVariable, nouvelleValeur);
+
+            return OkEnveloppe(null);
         }
 
         /// <summary>

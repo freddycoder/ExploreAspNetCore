@@ -5,7 +5,7 @@ metadata:
   labels:
     app: swaggerdoc
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: swaggerdoc
@@ -23,4 +23,18 @@ spec:
         - name: ASPNETCORE_ENVIRONMENT
           value: "Production"
         - name: REDIS_HOSTNAME
-          value: "10.244.2.42"
+          value: "localhost"
+        resources:
+          limits:
+            cpu: "0.3"
+
+      - name: redis
+        image: redis:5.0.4
+        env:
+        - name: MASTER
+          value: "true"
+        ports:
+        - containerPort: 6379
+        resources:
+          limits:
+            cpu: "0.1"

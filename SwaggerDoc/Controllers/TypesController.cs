@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using SwaggerDoc.Enveloppe;
 using SwaggerDoc.Validator.Types;
 using System;
@@ -12,9 +13,20 @@ namespace SwaggerDoc.Controllers
     /// Permet d'obtenir le noms des différents types dans les assemblies
     /// </summary>
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     public class TypesController : ControllerBase
     {
+        private readonly IDistributedCache _cache;
+
+        /// <summary>
+        /// Constructeur par initialisation avec les dépendances requises
+        /// </summary>
+        /// <param name="cache"></param>
+        public TypesController(IDistributedCache cache)
+        {
+            _cache = cache;
+        }
+
         /// <summary>
         /// Permet d'obtenir tout les type de AppDomain.CurrentDomain
         /// </summary>
@@ -64,6 +76,16 @@ namespace SwaggerDoc.Controllers
                 .Where(t => t.Name.Contains(name ?? "", StringComparison.OrdinalIgnoreCase))
                 .Select(t => t.Name)
                 .ToList());
+
+        /// <summary>
+        /// Retourne le type utiliser pour la cache distribué
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult GetIDistributedCacheType()
+        {
+            return OkEnveloppe(_cache.GetType());
+        }
 
         private IActionResult Enveloppe(IEnumerable<string> result)
         {

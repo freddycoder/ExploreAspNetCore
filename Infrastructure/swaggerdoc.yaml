@@ -32,7 +32,7 @@ spec:
         - name: CERTIFICAT_MOT_DE_PASSE
           value: #{CERTIFICAT_MOT_DE_PASSE}
         - name: CERTIFICAT_LOCATION
-          value: /etc/secret
+          value: "/etc/secret"
         - name: CERTIFICAT
           value: "certificat"
         volumeMounts:

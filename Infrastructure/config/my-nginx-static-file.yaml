@@ -4,4 +4,4 @@ metadata:
   name: my-nginx-static-file
 data:
   my-page.html: |
-	Hello from my page!
+  Hello from my page!

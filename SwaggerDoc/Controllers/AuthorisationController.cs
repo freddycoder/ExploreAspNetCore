@@ -15,7 +15,7 @@ namespace SwaggerDoc.Controllers
         /// Retourne true si autorisé, sinon 403
         /// </summary>
         /// <returns></returns>
-        [HttpGet("{nomVariable}")]
+        [HttpGet]
         [ProducesResponseType(200, Type = typeof(bool))]
         [Authorize]
         public IActionResult AreYouAuthorise()

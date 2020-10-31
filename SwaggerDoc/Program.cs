@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Https;
 using Microsoft.Extensions.Hosting;
-using System.IO;
-using System.Security.Cryptography.X509Certificates;
 
 namespace SwaggerDoc
 {

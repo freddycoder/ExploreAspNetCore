@@ -15,25 +15,26 @@ spec:
         app: swaggerdoc
     spec:
       volumes:
-      - name: secret-volume
+      - name: ssl-volume
         secret:
-          secretName: swaggerdocsecret
-      - name: configmap-volume
-        configMap:
-          name: swaggerdocconfigmap
+          secretName: ssl-secret
       containers:
       - name: swaggerdoc
         image: #{REGISTRY_HOSTNAME}/#{IMAGE_NAME}:#{GITHUB_RUN_ID}
         ports:
         - containerPort: 443
         - containerPort: 80
-        volumeMounts:
-        - mountPath: /etc/swaggerdpc/ssl
-          name: secret-volume
-        - mountPath: /etc/swaggerdoc/conf.d
-          name: configmap-volume
         env:
         - name: ASPNETCORE_ENVIRONMENT
           value: "Production"
         - name: REDIS_HOSTNAME
           value: "10.244.2.42"
+        - name: CERTIFICAT_MOT_DE_PASSE
+          value: #{CERTIFICAT_MOT_DE_PASSE}
+        - name: CERTIFICAT_LOCATION
+          value: /etc/secret
+        - name: CERTIFICAT
+          value: "certificat"
+        volumeMounts:
+        - name: ssl-volume
+          mountPath: /etc/secret

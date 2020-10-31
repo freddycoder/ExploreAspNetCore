@@ -35,7 +35,7 @@ namespace SwaggerDoc
                         o.ConfigureHttpsDefaults(o =>
                         {
                             o.ClientCertificateMode = ClientCertificateMode.RequireCertificate;
-                            o.ServerCertificate = new X509Certificate2(Path.Combine("c:\\root_ca_swaggerdoc.pfx"), "1234");
+                            o.ServerCertificate = AccesCertificat.ObtenirCertificatServeur();
                         });
                     });
                 });

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,18 +10,25 @@ namespace SwaggerDoc.Services
 {
     public class MyCertificateValidationService
     {
+        private readonly ILogger<MyCertificateValidationService> _logger;
+
+        public MyCertificateValidationService(ILogger<MyCertificateValidationService> logger)
+        {
+            _logger = logger;
+        }
+
         public bool ValidateCertificate(X509Certificate2 clientCertificate)
         {
-            // Do not hardcode passwords in production code
-            // Use thumbprint or key vault
-            var cert = new X509Certificate2(Path.Combine("c:\\root_ca_swaggerdoc.pfx"), "1234");
+            var cert = AccesCertificat.ObtenirCertificatServeur();
 
-            if (clientCertificate.Thumbprint == cert.Thumbprint)
+            if (clientCertificate.Thumbprint != cert.Thumbprint)
             {
-                return true;
+                _logger.LogWarning($"Certificat non valide, le sujet était {clientCertificate.Subject}{Environment.NewLine}Le thumbprint du certificat n'est pas reconnu, le thumbprint était, {clientCertificate.Thumbprint}");
+
+                return false;
             }
 
-            return false;
+            return true;
         }
     }
 }

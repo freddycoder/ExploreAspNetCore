@@ -53,4 +53,5 @@ jobs:
       - name: Kubectl apply
         run: |
           kubectl config current-context
+          kubectl apply -f ./Infrastructure/secret/ssl-secret.yaml
           kubectl apply -f ./Infrastructure/swaggerdoc.yaml

@@ -128,3 +128,47 @@ Source : https://docs.microsoft.com/en-us/azure/aks/kubernetes-action
 kubectl expose deployment swaggerdoc-deployment --type=LoadBalancer --name=swaggerdoc-service
 ```
 source : https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/
+
+# Authentification Https
+
+Créer un certificat auto signé :
+
+```
+Windows PowerShell
+Copyright (C) Microsoft Corporation. Tous droits réservés.
+
+PS C:\WINDOWS\system32> New-SelfSignedCertificate -DnsName "root_ca_swaggerdoc.com", "root_ca_dev_swaggerdoc.com" -CertStoreLocation "cert:\LocalMachine\My" -NotAfter (Get-Date).AddYears(20) -FriendlyName "root_ca_swaggerdoc.com" -KeyUsageProperty All -KeyUsage CertSign, CRLSign, DigitalSignature
+
+
+   PSParentPath : Microsoft.PowerShell.Security\Certificate::LocalMachine\My
+
+Thumbprint                                Subject
+----------                                -------
+***                                       CN=root_ca_swaggerdoc.com
+
+
+PS C:\WINDOWS\system32> $mypwd = ConvertTo-SecureString -String "***" -Force -AsPlainText
+PS C:\WINDOWS\system32> Get-ChildItem -Path cert:\localMachine\my\"***" | Export-PfxCertificate -FilePath C:\root_ca_swaggerdoc.pfx -Password $mypwd
+
+
+    Répertoire : C:\
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----       2020-10-27     20:21           2749 root_ca_swaggerdoc.pfx
+
+
+PS C:\WINDOWS\system32> Export-Certificate -Cert cert:\localMachine\my\"***" -FilePath root_ca_swaggerdoc.crt
+
+
+    Répertoire : C:\WINDOWS\system32
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----       2020-10-27     20:21            865 root_ca_swaggerdoc.crt
+
+
+PS C:\WINDOWS\system32>
+```

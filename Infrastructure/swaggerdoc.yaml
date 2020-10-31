@@ -28,7 +28,7 @@ spec:
         - name: ASPNETCORE_ENVIRONMENT
           value: "Production"
         - name: REDIS_HOSTNAME
-          value: "10.244.2.42"
+          value: "redis-service"
         - name: CERTIFICAT_MOT_DE_PASSE
           value: "#{CERTIFICAT_MOT_DE_PASSE}"
         - name: CERTIFICAT_LOCATION

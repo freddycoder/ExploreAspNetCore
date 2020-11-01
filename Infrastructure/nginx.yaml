@@ -13,10 +13,6 @@ spec:
   selector:
     matchLabels:
       app: my-nginx
-  remplate:
-    metadata:
-      labels:
-        app: my-nginx
     spec:
       containers:
       - name: my-nginx

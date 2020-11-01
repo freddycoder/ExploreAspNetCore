@@ -5,15 +5,15 @@ metadata:
   labels:
     app: my-nginx
 spec:
-  volumes:
-    - name: my-nginx-default-conf
-      configMap:
-        name: my-nginx-config
   replicas: 1
   selector:
     matchLabels:
       app: my-nginx
     spec:
+      volumes:
+        - name: my-nginx-default-conf
+          configMap:
+            name: my-nginx-config
       containers:
       - name: my-nginx
         image: nginx

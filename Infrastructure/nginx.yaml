@@ -19,8 +19,8 @@ spec:
           configMap:
             name: my-nginx-config
         - name: my-nginx-pages
-            configMap:
-              name: my-nginx-static-file
+          configMap:
+            name: my-nginx-static-file
       containers:
       - name: my-nginx
         image: nginx

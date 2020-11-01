@@ -9,6 +9,10 @@ spec:
   selector:
     matchLabels:
       app: my-nginx
+  template:
+    metadata:
+      labels:
+        app: my-nginx
     spec:
       volumes:
         - name: my-nginx-default-conf

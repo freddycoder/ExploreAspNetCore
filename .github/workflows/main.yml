@@ -59,6 +59,5 @@ jobs:
           kubectl apply -f ./Infrastructure/config/my-nginx-config.yaml
           kubectl apply -f ./Infrastructure/config/my-nginx-static-file.yaml
           kubectl apply -f ./Infrastructure/secret/ssl-secret.yaml
-          kubectl delete pod my-nginx
           kubectl apply -f ./Infrastructure/nginx.yaml
           kubectl apply -f ./Infrastructure/swaggerdoc.yaml

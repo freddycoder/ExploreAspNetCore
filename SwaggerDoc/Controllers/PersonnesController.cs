@@ -51,5 +51,30 @@ namespace SwaggerDoc.Controllers
                 Text = "$Xml$".Format(personne, bindingFlags: System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic) 
             });
         }
+
+        /// <summary>
+        /// Action pour obtenir une personne
+        /// </summary>
+        /// <param name="prenom"></param>
+        /// <returns></returns>
+        [HttpGet("FromHeader")]
+        [ProducesResponseType(200, Type = typeof(ApiEnveloppe<string>))]
+        [ProducesResponseType(404, Type = typeof(ApiEnveloppe<object>))]
+        public IActionResult Personne([FromHeader] string prenom)
+        {
+            var personne = new Personne { Prenom = prenom };
+
+            personne.Xml = Properties.Constantes.PersonXml.Format(personne, bindingFlags: System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+
+            _logger.LogDebug("$Xml$".Format(personne, bindingFlags: System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic));
+
+            return OkEnveloppe(personne).WithMessage(new Message
+            {
+                Code = "Xml",
+                Id = "1",
+                Severity = "Information",
+                Text = "$Xml$".Format(personne, bindingFlags: System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)
+            });
+        }
     }
 }

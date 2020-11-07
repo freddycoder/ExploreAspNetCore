@@ -76,5 +76,41 @@ namespace SwaggerDoc.Controllers
                 Text = "$Xml$".Format(personne, bindingFlags: System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)
             });
         }
+
+        /// <summary>
+        /// Action pour obtenir une personne
+        /// </summary>
+        /// <param name="prenom"></param>
+        /// <returns></returns>
+        [HttpPost("FromPOST")]
+        [ProducesResponseType(200, Type = typeof(ApiEnveloppe<string>))]
+        [ProducesResponseType(404, Type = typeof(ApiEnveloppe<object>))]
+        public IActionResult PersonnePOST([FromBody] Personne personne)
+        {
+            personne.Xml = Properties.Constantes.PersonXml.Format(personne, bindingFlags: System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+
+            _logger.LogDebug("$Xml$".Format(personne, bindingFlags: System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic));
+
+            return OkEnveloppe(personne).WithMessage(new Message
+            {
+                Code = "Xml",
+                Id = "1",
+                Severity = "Information",
+                Text = "$Xml$".Format(personne, bindingFlags: System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)
+            });
+        }
+
+        /// <summary>
+        /// Action pour obtenir une personne
+        /// </summary>
+        /// <param name="prenom"></param>
+        /// <returns></returns>
+        [HttpPost("WhatCharIsThis")]
+        [ProducesResponseType(200, Type = typeof(ApiEnveloppe<string>))]
+        [ProducesResponseType(404, Type = typeof(ApiEnveloppe<object>))]
+        public IActionResult CharPOST([FromHeader] string yourchar)
+        {
+            return OkEnveloppe((int)yourchar[0]);
+        }
     }
 }

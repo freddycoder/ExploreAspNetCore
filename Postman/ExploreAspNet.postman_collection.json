@@ -92,6 +92,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "x-mock-response-name",
+								"value": "Afficher hello world",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -109,7 +114,96 @@
 						},
 						"description": "Test de l'api de programmation"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Afficher hello world",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"text\": \"afficher \\\"hello world!\\\"\"\r\n}"
+								},
+								"url": {
+									"raw": "{{url}}/Programming",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"Programming"
+									]
+								}
+							},
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 05 Nov 2020 03:11:05 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Server",
+									"value": "nginx"
+								},
+								{
+									"key": "x-srv-trace",
+									"value": "v=1;t=7b4758d9d2baab35"
+								},
+								{
+									"key": "x-srv-span",
+									"value": "v=1;s=6d9517ec1ca10e8e"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "120"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "119"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1604545924"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"96-S/5iQ2y1qqIInh5BwoPc+chvDJU\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"result\": \"hello world!\"\n}"
+						}
+					]
 				},
 				{
 					"name": "GetAstNetCoreEnvrionment",
@@ -195,6 +289,11 @@
 								"key": "prenom",
 								"value": "John",
 								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -211,7 +310,7 @@
 					"response": []
 				},
 				{
-					"name": "Cas nominal Copy",
+					"name": "Cas nominal Bad space",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -229,6 +328,39 @@
 							"path": [
 								"Personnes",
 								"FromHeader"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cas nominal Bad space in POST",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"prenom\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Personnes/FromPOST",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Personnes",
+								"FromPOST"
 							]
 						}
 					},
@@ -329,6 +461,95 @@
 						}
 					},
 					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Client error",
+			"item": [
+				{
+					"name": "Status code 449",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "296d54e7-f925-46e4-8e83-d652d103bab4",
+								"exec": [
+									"pm.test(\"demo\", function () {\r",
+									"    pm.expect(pm.response.code).to.eq(449);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-mock-response-code",
+								"value": "449",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/RetryWith",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"RetryWith"
+							]
+						},
+						"description": "A request to test that postman can return the status code 449 using mock server."
+					},
+					"response": [
+						{
+							"name": "Status code 449",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/RetryWith",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"RetryWith"
+									]
+								}
+							},
+							"code": 449,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"RetryWith\": \"This is your lucky day!\"\r\n}"
+						}
+					]
+				}
+			],
+			"description": "A folder simulatin every client error using postman mock server",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8f3d5cb6-6358-4b7a-92e2-007c93138023",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "22a49e0d-7bd3-48c3-ac3e-af116f39c286",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			],
 			"protocolProfileBehavior": {}

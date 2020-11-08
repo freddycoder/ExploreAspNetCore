@@ -23,7 +23,7 @@ spec:
             name: my-nginx-static-file
         - name: certificates-secret
           secret:
-            name: ssl-secret
+            secretName: ssl-secret
       containers:
       - name: my-nginx
         image: nginx

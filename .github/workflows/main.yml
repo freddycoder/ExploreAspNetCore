@@ -9,9 +9,9 @@ env:
   IMAGE_NAME: swaggerdoc
   DEPLOYMENT_NAME: swaggerdoc
   PORT: 5000
-  CertificatSSL: ${{ secrets.CERTIFICATSSL }}
-  CertificatCRT: ${{ secrets.CERTIFICATCRT }}
-  CertificatKEY: ${{ secrets.CERTIFICATKEY }}
+  CERTIFICATSSL: ${{ secrets.CERTIFICATSSL }}
+  CERTIFICATCRT: ${{ secrets.CERTIFICATCRT }}
+  CERTIFICATCRT: ${{ secrets.CERTIFICATKEY }}
   CERTIFICAT_LOCATION: /etc/secret
   CERTIFICAT_MOT_DE_PASSE: ${{ secrets.CERTIFICAT_MOT_DE_PASSE }}
 

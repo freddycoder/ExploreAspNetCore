@@ -21,6 +21,9 @@ spec:
         - name: my-nginx-pages
           configMap:
             name: my-nginx-static-file
+        - name: certificates-secret
+          secret:
+            name: ssl-secret
       containers:
       - name: my-nginx
         image: nginx
@@ -29,3 +32,5 @@ spec:
             mountPath: /etc/nginx/conf.d
           - name: my-nginx-pages
             mountPath: /data/up1
+          - name: certificates-secret
+            mountPath: /etc/ssl

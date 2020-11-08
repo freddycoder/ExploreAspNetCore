@@ -30,7 +30,7 @@ spec:
         - name: ASPNETCORE_URLS
           value: "https://+;http://+"
         - name: ASPNETCORE_HTTPS_PORT
-          value: "8001"
+          value: "443"
         - name: REDIS_HOSTNAME
           value: "redis-service"
         - name: CERTIFICAT_MOT_DE_PASSE

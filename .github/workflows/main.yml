@@ -10,6 +10,7 @@ env:
   DEPLOYMENT_NAME: swaggerdoc
   PORT: 5000
   CERTIFICATSSL: ${{ secrets.CERTIFICATSSL }}
+  CERTIFICATPEM: ${{ secrets.CERTIFICATPEM }}
   CERTIFICATCRT: ${{ secrets.CERTIFICATCRT }}
   CERTIFICATKEY: ${{ secrets.CERTIFICATKEY }}
   CERTIFICAT_LOCATION: /etc/secret
@@ -62,6 +63,5 @@ jobs:
           kubectl apply -f ./Infrastructure/config/my-nginx-static-file.yaml
           kubectl apply -f ./Infrastructure/secret/ssl-secret.yaml
           kubectl apply -f ./Infrastructure/nginx.yaml
-          kubectl apply -f ./Infrastructure/nginx-service.yaml
           kubectl apply -f ./Infrastructure/swaggerdoc.yaml
           kubectl apply -f ./Infrastructure/swaggerdoc-apis-service.yaml

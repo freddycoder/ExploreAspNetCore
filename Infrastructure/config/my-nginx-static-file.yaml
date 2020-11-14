@@ -21,9 +21,8 @@ data:
         <button onclick="callIncrement()">Like</button><span id="likeCount"></span>
       <script>
           var callIncrement = function callIncrement() {
-            //fetch("https://freddycoder.com/api/redis/CallIncrement")
-            fetch("/api/redis/callincrement")
-                .then(date=>{return data.json()})
+            fetch("/api/redis/callincrement", { method: 'POST' })
+                .then(data=>{return data.json()})
                 .then(res=>{document.getElementById("likeCount").textContent = res.result});
           }
       </script>

@@ -71,4 +71,4 @@ jobs:
       - name: Kubectl apply
         run: |
           kubectl config current-context
-          kubectl apply -f ./Infrastructure/swaggerdoc.yaml
+          kubectl apply -f ./Infrastructure/config/my-nginx-static-file.yaml

@@ -102,9 +102,9 @@ namespace SwaggerDoc
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHsts();
+           // app.UseHsts();
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseStaticFiles();
 

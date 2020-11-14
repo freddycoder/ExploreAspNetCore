@@ -5,15 +5,11 @@ metadata:
 data:
   default.conf: |
     server {
-            listen              80;
-            listen              443 ssl;
-            server_name         explore-asp-net.com;
-            ssl_certificate     /etc/ssl/certificat.pem;
-            ssl_certificate_key /etc/ssl/certificat.pem;
-            ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
-            ssl_ciphers         HIGH:!aNULL:!MD5;
-
-            location / {
-                    proxy_pass https://swaggerdoc-apis-service/;
+            listen              80 default_server;
+            listen              [::]:80 default_server;
+            server_name         freddycoder.com www.freddycoder.com;
+            root /data/up1;
+            location /api/ {
+                    proxy_pass https://swaggerdoc-apis-service;
             }
     }

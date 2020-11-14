@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: my-nginx-static-file
 data:
-  my-page.html: |
+  index.html: |
     Hello from my page!

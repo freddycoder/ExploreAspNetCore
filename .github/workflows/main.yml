@@ -41,7 +41,7 @@ jobs:
 
       # Build the image nginx
       - name: Docker build
-        run: docker build -f .Infrastructure/nginx-https-ready.dockerfile -t nginx-https-ready:first .
+        run: docker build -f ./Infrastructure/nginx-https-ready.dockerfile -t nginx-https-ready:first .
         
       # Tag the images nginx
       - name: Docker tag

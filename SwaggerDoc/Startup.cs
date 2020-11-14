@@ -39,48 +39,6 @@ namespace SwaggerDoc
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<MyCertificateValidationService>();
-
-            services.AddCertificateForwarding(options =>
-            {
-                options.CertificateHeader = "X-SSL-CERT";
-                options.HeaderConverter = (headerValue) =>
-                {
-                    X509Certificate2? clientCertificate = null;
-
-                    if (!string.IsNullOrWhiteSpace(headerValue))
-                    {
-                        byte[] bytes = StringToByteArray(headerValue);
-                        clientCertificate = new X509Certificate2(bytes);
-                    }
-
-                    return clientCertificate;
-                };
-            });
-
-            services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme)
-                    .AddCertificate(o =>
-                    {
-                        o.AllowedCertificateTypes = CertificateTypes.SelfSigned;
-
-                        o.Events = new CertificateAuthenticationEvents()
-                        {
-                            OnCertificateValidated = context =>
-                            {
-                                var validator = context.HttpContext.RequestServices.GetService(typeof(MyCertificateValidationService))
-                                                        as MyCertificateValidationService
-                                                        ?? throw new ApplicationException("MyCertificatValidationService is not register");
-
-                                if (validator.ValidateCertificate(context.ClientCertificate) == false)
-                                {
-                                    context.Fail("Thumbprint dont match");
-                                }
-
-                                return Task.CompletedTask;
-                            }
-                        };
-                    });
-
             services.AddScoped<ApiContexte>()
                     .AddSingleton<JournalTransaction>()
                     .AddTransient<IInterpretationService, InterpretationService>()
@@ -102,10 +60,6 @@ namespace SwaggerDoc
                 app.UseDeveloperExceptionPage();
             }
 
-           // app.UseHsts();
-
-            //app.UseHttpsRedirection();
-
             app.UseStaticFiles();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
@@ -121,8 +75,6 @@ namespace SwaggerDoc
 
             app.UseRouting();
 
-            app.UseCertificateForwarding();
-
             app.UseAuthentication();
 
             app.UseAuthorization();
@@ -131,19 +83,6 @@ namespace SwaggerDoc
             {
                 endpoints.MapControllers();
             });
-        }
-
-        private static byte[] StringToByteArray(string hex)
-        {
-            int NumberChars = hex.Length;
-            byte[] bytes = new byte[NumberChars / 2];
-
-            for (int i = 0; i < NumberChars; i += 2)
-            {
-                bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
-            }
-
-            return bytes;
         }
     }
 }

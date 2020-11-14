@@ -15,7 +15,7 @@ namespace SwaggerDoc.Controllers
     /// Api de programmation, permet d'interpreteur des scripts écrit en français
     /// </summary>
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ProgrammingController : Controller
     {
         private IInterpretationService _interpretationService;

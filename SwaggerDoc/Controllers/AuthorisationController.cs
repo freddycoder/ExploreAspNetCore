@@ -8,7 +8,7 @@ namespace SwaggerDoc.Controllers
     /// Contrôlleur pour tester l'authentification
     /// </summary>
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     public class AuthorisationController : Controller
     {
         /// <summary>

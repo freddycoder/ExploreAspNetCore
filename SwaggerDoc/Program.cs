@@ -30,11 +30,11 @@ namespace SwaggerDoc
                     webBuilder.UseStartup<Startup>();
                     webBuilder.ConfigureKestrel(o =>
                     {
-                        o.ConfigureHttpsDefaults(o =>
-                        {
-                            o.ClientCertificateMode = ClientCertificateMode.RequireCertificate;
-                            o.ServerCertificate = AccesCertificat.ObtenirCertificatServeur();
-                        });
+                        //o.ConfigureHttpsDefaults(o =>
+                        //{
+                        //    o.ClientCertificateMode = ClientCertificateMode.RequireCertificate;
+                        //    o.ServerCertificate = AccesCertificat.ObtenirCertificatServeur();
+                        //});
                     });
                 });
     }

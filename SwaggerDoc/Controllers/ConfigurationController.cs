@@ -13,7 +13,7 @@ namespace SwaggerDoc.Controllers
     /// Contrôlleur pour obtenir de l'information sur les configurations de l'api
     /// </summary>
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     public class ConfigurationController : Controller
     {
         private readonly IDistributedCache _cache;

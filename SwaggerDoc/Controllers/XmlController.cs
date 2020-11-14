@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SwaggerDoc.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class XmlController : Controller
     {

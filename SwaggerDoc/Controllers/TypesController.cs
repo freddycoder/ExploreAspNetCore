@@ -13,7 +13,7 @@ namespace SwaggerDoc.Controllers
     /// Permet d'obtenir le noms des différents types dans les assemblies
     /// </summary>
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     public class TypesController : ControllerBase
     {
         private readonly IDistributedCache _cache;

@@ -11,7 +11,7 @@ namespace SwaggerDoc.Controllers
     /// Controlleur permettant d'accéder au transaction de l'api
     /// </summary>
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     public class TransactionsController : Controller
     {
         private static PropertyInfo[] TransactionProperties = typeof(Transaction).GetProperties();

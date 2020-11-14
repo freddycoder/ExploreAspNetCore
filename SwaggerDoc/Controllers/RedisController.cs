@@ -10,7 +10,7 @@ namespace SwaggerDoc.Controllers
     /// Controller pour interagir avec la cache redis
     /// </summary>
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     public class RedisController : Controller
     {
         private readonly IDistributedCache _cache;

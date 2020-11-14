@@ -11,7 +11,7 @@ namespace SwaggerDoc.Controllers
     /// Controller pour obtenir des personnes
     /// </summary>
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class PersonnesController
     {
         private ILogger<PersonnesController> _logger;

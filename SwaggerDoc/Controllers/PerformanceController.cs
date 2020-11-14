@@ -13,7 +13,7 @@ namespace SwaggerDoc.Controllers
     /// Controlleur pour tester les performances de l'extension string.Format
     /// </summary>
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class PerformanceController : Controller
     {
         private static readonly Fixture _fixture = new Fixture();

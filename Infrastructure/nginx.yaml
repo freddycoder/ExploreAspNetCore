@@ -15,17 +15,12 @@ spec:
         app: my-nginx
     spec:
       volumes:
-        - name: my-nginx-default-conf
-          configMap:
-            name: my-nginx-config
         - name: my-nginx-pages
           configMap:
             name: my-nginx-static-file
       containers:
       - name: my-nginx
-        image: nginx
+        image: #{REGISTRY_HOSTNAME}/nginx-https-ready:first
         volumeMounts:
-          - name: my-nginx-default-conf
-            mountPath: /etc/nginx/conf.d
           - name: my-nginx-pages
             mountPath: /data/up1

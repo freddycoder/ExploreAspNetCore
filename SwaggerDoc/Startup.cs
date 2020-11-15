@@ -7,10 +7,6 @@ using SwaggerDoc.Extension;
 using SwaggerDoc.Model;
 using SwaggerDoc.Services;
 using static SwaggerDoc.Extension.DistributedCacheExtension;
-using System.Security.Cryptography.X509Certificates;
-using System;
-using Microsoft.AspNetCore.Authentication.Certificate;
-using System.Threading.Tasks;
 
 namespace SwaggerDoc
 {
@@ -63,14 +59,15 @@ namespace SwaggerDoc
             app.UseStaticFiles();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
+            //app.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "My API V1");
-                c.RoutePrefix = "/api";
+                c.SwaggerEndpoint("v1/swagger.json", "My API V1");
+                c.RoutePrefix = "api";
+                c.DocumentTitle = "Swagger UI - Swaggerdoc api";
             });
 
             app.UseRouting();
@@ -82,6 +79,7 @@ namespace SwaggerDoc
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapSwagger("api/{documentName}/swagger.json");
             });
         }
     }

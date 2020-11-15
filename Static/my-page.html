@@ -12,8 +12,13 @@
 
 <body>
 	<p>Hello from my page!</p>
-	<button onclick="callIncrement()">Like</button><span id="likeCount"></span>
+	<button onclick="callIncrement()" onload="getLikes()">Like</button><span id="likeCount"></span>
   <script>
+	  var getLikes = function() {
+		  fetch("/api/redis/getlikes")
+		  	.then(data=>{return data.json()})
+			.then(res=>{document.getElementById("likeCount").textContent = res.result});
+	  }
 	  var callIncrement = function callIncrement() {
 		fetch("/api/redis/callincrement", { method: 'POST' })
 			.then(data=>{return data.json()})

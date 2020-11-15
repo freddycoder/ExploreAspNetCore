@@ -6,6 +6,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using static SwaggerDoc.Extension.DistributedCacheExtension;
 using System.ComponentModel;
 using SwaggerDoc.Enveloppe;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SwaggerDoc.Controllers
 {
@@ -51,6 +52,7 @@ namespace SwaggerDoc.Controllers
         /// <param name="nouvelleValeur"></param>
         /// <returns></returns>
         [HttpPut("{nomVariable}")]
+        [Authorize]
         public IActionResult SetEnvironnementVariable(string nomVariable, [FromBody] string? nouvelleValeur)
         {
             Environment.SetEnvironmentVariable(nomVariable, nouvelleValeur);

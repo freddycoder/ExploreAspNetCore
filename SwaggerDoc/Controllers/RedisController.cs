@@ -25,6 +25,23 @@ namespace SwaggerDoc.Controllers
         }
 
         /// <summary>
+        /// Permet d'obtenir le nombres de likes
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> GetLikes()
+        {
+            var likes = await _cache.GetStringAsync("increment", CancellationToken.None);
+
+            if (string.IsNullOrWhiteSpace(likes) || int.TryParse(likes, out var _) == false)
+            {
+                likes = "0";
+            }
+
+            return OkEnveloppe(likes);
+        }
+
+        /// <summary>
         /// Incrémente de 1 la variable 'increment' dans la cache redis
         /// </summary>
         /// <returns></returns>

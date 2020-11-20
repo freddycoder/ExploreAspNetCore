@@ -1,6 +1,7 @@
 ﻿using HLHML;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using SwaggerDoc.Model.Programming;
 using System;
 using System.IO;
 using System.Threading;
@@ -16,7 +17,7 @@ namespace SwaggerDoc.Services
         /// <summary>
         /// Interpreter la chaine représentant un programme, une expression, etc.
         /// </summary>
-        Task<string> Interprete(string program);
+        Task<string> Interprete(ProgramToExecute program);
     }
 
     /// <summary>
@@ -36,17 +37,24 @@ namespace SwaggerDoc.Services
         }
 
         /// <inheritdoc />
-        public async Task<string> Interprete(string program)
+        public async Task<string> Interprete(ProgramToExecute program)
         {
             try
             {
                 return await Task.Run(() =>
                 {
+                    //if (string.IsNullOrWhiteSpace(text.SessionId) == false)
+                    //{
+                    //    var variables = _cache.Get(text.SessionId);
+
+                    //    var scope = new HLHML.Scope(variables);
+                    //}
+
                     using var sw = new StringWriter();
 
                     var interpreteur = new Interpreteur(sw);
 
-                    interpreteur.Interprete(program);
+                    interpreteur.Interprete(program.Text);
 
                     return sw.ToString();
                 }, CancellationToken.None);

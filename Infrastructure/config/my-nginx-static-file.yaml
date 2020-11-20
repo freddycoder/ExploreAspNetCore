@@ -5,30 +5,55 @@ metadata:
 data:
   index.html: |
     <!doctype html>
-    
     <html lang="en">
     <head>
       <meta charset="utf-8">
-    
       <title>Freddycoder website</title>
       <meta name="description" content="The website develope by freddycoder">
       <meta name="author" content="freddycoder">
-    
+      <link href="style.css" rel="stylesheet" type="text/css">
     </head>
-    
     <body>
-      <p>Hello from my page!</p>
+      <h1>Wecome on freddycoder website!</h1>
       <button onclick="callIncrement()">Like</button><span id="likeCount"></span>
+      <div id="projects">
+        <h2>Projects</h2>
+        <div id="projet_hlhml">
+          <h3>HLHML</h3><i>Write script in plain french</i>
+          <a href="https://github.com/freddycoder/HLHML">See on Github</a>
+        </div>
+      </div>
       <script>
         fetch("/api/redis/getlikes")
-            .then(data=>{return data.json()})
-            .then(res=>{document.getElementById("likeCount").textContent = res.result});
-        
+        .then(data=>{return data.json()})
+        .then(res=>{document.getElementById("likeCount").textContent = res.result});
         var callIncrement = function callIncrement() {
-          fetch("/api/redis/callincrement", { method: 'POST' })
-            .then(data=>{return data.json()})
-            .then(res=>{document.getElementById("likeCount").textContent = res.result});
+        fetch("/api/redis/callincrement", { method: 'POST' })
+          .then(data=>{return data.json()})
+          .then(res=>{document.getElementById("likeCount").textContent = res.result});
         }
       </script>
     </body>
     </html>
+  style.css: |
+    html {
+        background-color: #b6b6b6;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+    body {
+        width: 600px;
+        margin: 0 auto;
+        background-color: #e2e2e2;
+        padding: 0 20px 20px 20px;
+        border: 5px solid rgb(255, 255, 255);
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    button {
+        color: blue;
+        border-radius: 2ch;
+    }

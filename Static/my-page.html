@@ -8,11 +8,22 @@
   <meta name="description" content="The website develope by freddycoder">
   <meta name="author" content="freddycoder">
 
+  <link href="style.css" rel="stylesheet" type="text/css">
+
 </head>
 
 <body>
-	<p>Hello from my page!</p>
+	<h1>Wecome on freddycoder website!</h1>
 	<button onclick="callIncrement()">Like</button><span id="likeCount"></span>
+
+	<div id="projects">
+		<h2>Projects</h2>
+
+		<div id="projet_hlhml">
+			<h3>HLHML</h3><i>Write script in plain french</i>
+			<a href="https://github.com/freddycoder/HLHML">See on Github</a>
+		</div>
+	</div>
   <script>
 	  fetch("/api/redis/getlikes")
 		.then(data=>{return data.json()})

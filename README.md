@@ -176,3 +176,7 @@ PS C:\WINDOWS\system32>
 # Setup https with nginx
 
 https://www.nginx.com/blog/using-free-ssltls-certificates-from-lets-encrypt-with-nginx/
+
+# Setup database in kubernetes
+
+https://docs.microsoft.com/en-us/sql/linux/tutorial-sql-server-containers-kubernetes?view=sql-server-ver15

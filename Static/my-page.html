@@ -1,39 +1,45 @@
 <!doctype html>
-
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-
-  <title>Freddycoder website</title>
-  <meta name="description" content="The website develope by freddycoder">
-  <meta name="author" content="freddycoder">
-
-  <link href="style.css" rel="stylesheet" type="text/css">
-
+	<meta charset="utf-8">
+	<title>Freddycoder website</title>
+	<meta name="description" content="The website develope by freddycoder">
+	<meta name="author" content="freddycoder">
+	<link href="style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 	<h1>Wecome on freddycoder website!</h1>
 	<button onclick="callIncrement()">Like</button><span id="likeCount"></span>
-
 	<div id="projects">
 		<h2>Projects</h2>
-
 		<div id="projet_hlhml">
 			<h3>HLHML</h3><i>Write script in plain french</i>
 			<a href="https://github.com/freddycoder/HLHML">See on Github</a>
 		</div>
+		<div id="projet_scholamusica">
+			<h3>ScholaMusica</h3><i>Website for teaching music online</i>
+			<a href="/scholamusica">Go to scholamusica</a>
+		</div>
 	</div>
-  <script>
-	  fetch("/api/redis/getlikes")
-		.then(data=>{return data.json()})
-		.then(res=>{document.getElementById("likeCount").textContent = res.result});
-			
-	  var callIncrement = function callIncrement() {
-		fetch("/api/redis/callincrement", { method: 'POST' })
-			.then(data=>{return data.json()})
-			.then(res=>{document.getElementById("likeCount").textContent = res.result});
-	  }
-  </script>
+	<div id="tools">
+		<h2>Tools</h2>
+		<div id="tool_prometheus">
+			<h3>Prometheus</h3><i>Prometheus monitoring</i>
+			<a href="https://prometheus.freddycoder.com">Go to prometheus dashboard</a>
+		</div>
+	</div>
+	<script>
+		fetch("/api/redis/getlikes")
+			.then(data => { return data.json() })
+			.then(res => { document.getElementById("likeCount").textContent = res.result });
+		var callIncrement = function callIncrement() {
+			fetch("/api/redis/callincrement", { method: 'POST' })
+				.then(data => { return data.json() })
+				.then(res => { document.getElementById("likeCount").textContent = res.result });
+		}
+	</script>
 </body>
+
 </html>

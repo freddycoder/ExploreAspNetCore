@@ -57,9 +57,9 @@ namespace SwaggerDoc.Controllers
         [HttpGet]
         public IActionResult ObtenirDictionaireDesTermes()
         {
-            var d = new List<EntreeDictionnaire>(HLHML.Dictionnaire.DictionnaireTermeConnue.TermesConnues.Count);
+            var d = new List<EntreeDictionnaire>(HLHML.DictionnaireTermeConnue.TermesConnues.Count);
             
-            foreach (var t in HLHML.Dictionnaire.DictionnaireTermeConnue.TermesConnues)
+            foreach (var t in HLHML.DictionnaireTermeConnue.TermesConnues)
             {
                 d.Add(new EntreeDictionnaire
                 {
@@ -85,6 +85,6 @@ namespace SwaggerDoc.Controllers
         /// <summary>
         /// Le terme et les informations relié
         /// </summary>
-        public HLHML.Dictionnaire.Terme? Terme { get; set; }
+        public HLHML.Terme? Terme { get; set; }
     }
 }

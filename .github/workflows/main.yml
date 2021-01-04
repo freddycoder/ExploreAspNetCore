@@ -21,7 +21,7 @@ jobs:
       - name: Install the doctl command line tool
         uses: digitalocean/action-doctl@v2
         with:
-            token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+            token: ${{ secrets.KUBERNETES_CLUSTER_TOKEN }}
 
       # Login to digital ocean container registry
       - name: Login into digital ocean container registry

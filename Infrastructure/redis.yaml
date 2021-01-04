@@ -9,7 +9,7 @@ spec:
   selector:
     matchLabels:
       app: redis
-  remplate:
+  template:
     metadata:
       labels:
         app: redis

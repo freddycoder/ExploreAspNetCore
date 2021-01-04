@@ -9,9 +9,10 @@ env:
   REGISTRY_HOSTNAME: registry.digitalocean.com/freddycoderregistry
   IMAGE_NAME: swaggerdoc
   DEPLOYMENT_NAME: swaggerdoc
+  EXTERNAL_IPS: 165.22.228.198
   PORT: 5000
 
-jobs:
+jobs: 
   build:
     runs-on: ubuntu-latest
 
@@ -67,10 +68,10 @@ jobs:
         with:
           tokenPrefix: '#{'
           tokenSuffix: '}'
-          files: '["./Infrastructure/swaggerdoc.yaml", "./Infrastructure/nginx.yaml"]'
+          files: '["./Infrastructure/swaggerdoc.yaml", "./Infrastructure/nginx.yaml" "./Infrastructure/nginx-service.yaml"]'
 
       # Deploy to kubernetes
       - name: Kubectl apply
         run: |
           kubectl config current-context
-          kubectl apply -f ./Infrastructure/swaggerdoc.yaml
+          kubectl apply -f ./Infrastructure/nginx-service.yaml

@@ -17,3 +17,5 @@ spec:
     name: https
   selector:
     run: my-nginx
+  externalIPs:
+    - #{EXTERNAL_IPS}

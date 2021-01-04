@@ -67,14 +67,14 @@ jobs:
         with:
           tokenPrefix: '#{'
           tokenSuffix: '}'
-          files: '["./Infrastructure/swaggerdoc.yaml", "./Infrastructure/secret/ssl-secret.yaml", "./Infrastructure/nginx.yaml"]'
+          files: '["./Infrastructure/swaggerdoc.yaml", "./Infrastructure/nginx.yaml"]'
 
       # Deploy to kubernetes
       - name: Kubectl apply
         run: |
           kubectl config current-context
           kubectl apply -f ./Infrastructure/redis.yaml
-          kubectl apply -f ./Infrastructure/redis-serivce.yaml
+          kubectl apply -f ./Infrastructure/redis-service.yaml
           kubectl apply -f ./Infrastructure/swaggerdoc.yaml
           kubectl apply -f ./Infrastructure/swaggerdoc-apis-service.yaml
           kubectl apply -f ./Infrastructure/my-nginx-static-file.yaml

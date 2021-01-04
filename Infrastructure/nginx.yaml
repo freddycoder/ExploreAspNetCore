@@ -20,7 +20,7 @@ spec:
             name: my-nginx-static-file
       containers:
       - name: my-nginx
-        image: #{REGISTRY_HOSTNAME}/nginx-https-ready:first
+        image: nginx
         volumeMounts:
           - name: my-nginx-pages
             mountPath: /data/up1

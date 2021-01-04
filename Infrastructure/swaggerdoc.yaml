@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: swaggerdoc
-        image: #{REGISTRY_HOSTNAME}/#{IMAGE_NAME}:#{GITHUB_RUN_ID}
+        image: #{REGISTRY_HOSTNAME}/#{IMAGE_NAME}:460081122
         ports:
         - containerPort: 80
         env:

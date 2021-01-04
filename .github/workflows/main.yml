@@ -58,7 +58,7 @@ jobs:
         with:
           personalAccessToken: ${{ secrets.KUBERNETES_CLUSTER_TOKEN }}
           clusterName: kubem
-          version: 
+          version: 1.19.3
           expirationTime: "1200"
 
       # Replace variable in kubernetes file

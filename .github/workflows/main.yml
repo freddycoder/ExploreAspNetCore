@@ -5,6 +5,7 @@ on:
     branches: [ master ]
     
 env:
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
   REGISTRY_HOSTNAME: registry.digitalocean.com/freddycoderregistry
   IMAGE_NAME: swaggerdoc
   DEPLOYMENT_NAME: swaggerdoc
@@ -57,6 +58,7 @@ jobs:
         with:
           personalAccessToken: ${{ secrets.KUBERNETES_CLUSTER_TOKEN }}
           clusterName: kubem
+          version: 
           expirationTime: "1200"
 
       # Replace variable in kubernetes file

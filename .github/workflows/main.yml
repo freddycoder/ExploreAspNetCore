@@ -41,15 +41,15 @@ jobs:
 
       # Build the image nginx
       - name: Docker build
-        run: docker build -f ./Infrastructure/nginx-https-ready.dockerfile -t nginx-https-ready:first .
+        run: docker build -f ./Infrastructure/nginx-https-ready.dockerfile -t nginx-https-ready:two .
         
       # Tag the images nginx
       - name: Docker tag
-        run: docker tag nginx-https-ready:first $REGISTRY_HOSTNAME/nginx-https-ready:first
+        run: docker tag nginx-https-ready:two $REGISTRY_HOSTNAME/nginx-https-ready:two
 
       # Push the image nginx
       - name: Docker push
-        run: docker push $REGISTRY_HOSTNAME/nginx-https-ready:first
+        run: docker push $REGISTRY_HOSTNAME/nginx-https-ready:two
 
       # Connect to kubernetes cluster
       - name: Set up kubectl

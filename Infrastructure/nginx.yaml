@@ -21,6 +21,8 @@ spec:
       containers:
       - name: my-nginx
         image: nginx
+        ports:
+        - containerPort: 80
         volumeMounts:
           - name: my-nginx-pages
             mountPath: /data/up1

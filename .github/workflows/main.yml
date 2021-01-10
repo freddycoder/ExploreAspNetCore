@@ -40,16 +40,16 @@ jobs:
       #  run: docker push $REGISTRY_HOSTNAME/$IMAGE_NAME:$GITHUB_RUN_ID
 
       # Build the image nginx
-      #- name: Docker build
-      #  run: docker build -f ./Infrastructure/nginx-https-ready.dockerfile -t nginx-https-ready:first .
+      - name: Docker build
+        run: docker build -f ./Infrastructure/nginx-https-ready.dockerfile -t nginx-https-ready:first .
         
       # Tag the images nginx
-      #- name: Docker tag
-      #  run: docker tag nginx-https-ready:first $REGISTRY_HOSTNAME/nginx-https-ready:first
+      - name: Docker tag
+        run: docker tag nginx-https-ready:first $REGISTRY_HOSTNAME/nginx-https-ready:first
 
       # Push the image nginx
-      #- name: Docker push
-      #  run: docker push $REGISTRY_HOSTNAME/nginx-https-ready:first
+      - name: Docker push
+        run: docker push $REGISTRY_HOSTNAME/nginx-https-ready:first
 
       # Connect to kubernetes cluster
       - name: Set up kubectl
@@ -72,5 +72,4 @@ jobs:
       - name: Kubectl apply
         run: |
           kubectl config current-context
-          kubectl apply -f ./Infrastructure/nginx-service.yaml
           kubectl apply -f ./Infrastructure/nginx.yaml

@@ -31,14 +31,15 @@ namespace SwaggerDoc.ActionFilter
             if (_apiContexte is null) throw new ApplicationException($"At this point, {nameof(_apiContexte)} should not be null.");
             if (_journalTransaction is null) throw new ApplicationException($"At this point, {nameof(_journalTransaction)} should not be null.");
 
-            var transaction = new Transaction
+            var transaction = new TransactionDerive
             {
                 Debut = DateTime.Now,
                 QueryString = context.HttpContext.Request.QueryString.ToString(),
                 RouteDate = GetRouteData(context.HttpContext.Request.RouteValues),
                 TrackingId = _apiContexte.TrackingId,
                 TransactionId = _apiContexte.TransactionId,
-                Url = context.HttpContext.Request.GetDisplayUrl()
+                Url = context.HttpContext.Request.GetDisplayUrl(),
+                Miscellaneous = "Signature"
             };
 
             var result = _journalTransaction.TryAdd(_apiContexte.TransactionId, transaction);
@@ -59,7 +60,7 @@ namespace SwaggerDoc.ActionFilter
             if (_apiContexte is null) throw new ApplicationException($"At this point, {nameof(_apiContexte)} should not be null.");
             if (_journalTransaction is null) throw new ApplicationException($"At this point, {nameof(_journalTransaction)} should not be null.");
 
-            if (_journalTransaction.TryGetValue(_apiContexte.TransactionId, out var transactionOrigin))
+            if (_journalTransaction.TryGetValue(_apiContexte.TransactionId, out TransactionDerive transactionOrigin))
             {
                 var transaction = transactionOrigin.Clone();
 

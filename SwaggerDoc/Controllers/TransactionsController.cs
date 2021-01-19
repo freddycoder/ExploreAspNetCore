@@ -56,14 +56,14 @@ namespace SwaggerDoc.Controllers
         /// <param name="id">L'id de la transaction</param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        [ProducesResponseType(200, Type = typeof(Transaction))]
+        [ProducesResponseType(200, Type = typeof(Trx))]
         [ProducesResponseType(400, Type = typeof(BadRequestObjectResult))]
         [ProducesResponseType(404, Type = typeof(NotFoundObjectResult))]
         public IActionResult Get([Required] string id)
         {
             if (Guid.TryParse(id, out var transactionId))
             {
-                if (_journalTransaction.TryGetValue(transactionId, out var transaction))
+                if (_journalTransaction.TryGetValue<Transaction>(transactionId, out var transaction))
                 {
                     return Ok(transaction);
                 }

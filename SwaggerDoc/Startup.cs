@@ -7,6 +7,7 @@ using SwaggerDoc.Extension;
 using SwaggerDoc.Model;
 using SwaggerDoc.Services;
 using static SwaggerDoc.Extension.DistributedCacheExtension;
+using AutoMapper;
 
 namespace SwaggerDoc
 {
@@ -35,6 +36,8 @@ namespace SwaggerDoc
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(GetType().Assembly);
+
             services.AddScoped<ApiContexte>()
                     .AddSingleton<JournalTransaction>()
                     .AddTransient<IInterpretationService, InterpretationService>()

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using SwaggerDoc.Enveloppe;
 using SwaggerDoc.Model.Programming;
@@ -38,6 +39,7 @@ namespace SwaggerDoc.Controllers
         [HttpPost]
         [ProducesResponseType(200, Type = typeof(ApiEnveloppe<string>))]
         [ProducesResponseType(400, Type = typeof(ApiEnveloppe<object>))]
+        [EnableCors("HLHML")]
         public async Task<IActionResult> ExecuterScript([FromBody] ProgramToExecute programToExecute)
         {
             try
@@ -55,6 +57,7 @@ namespace SwaggerDoc.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [EnableCors("HLHML")]
         public IActionResult ObtenirDictionaireDesTermes()
         {
             var d = new List<EntreeDictionnaire>(HLHML.DictionnaireTermeConnue.TermesConnues.Count);

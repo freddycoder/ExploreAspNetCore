@@ -5,7 +5,7 @@ metadata:
   labels:
     app: swaggerdoc
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: swaggerdoc
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: swaggerdoc
-        image: #{REGISTRY_HOSTNAME}/#{IMAGE_NAME}:460081122
+        image: #{REGISTRY_HOSTNAME}/#{IMAGE_NAME}:#{GITHUB_RUN_ID}
         ports:
         - containerPort: 80
         env:
@@ -24,3 +24,11 @@ spec:
           value: "Production"
         - name: REDIS_HOSTNAME
           value: "redis-service"
+        - name: CORS_ENABLE
+          value: "true"
+        - name: CORS_METHODS_ALLOW
+          value: "GET,POST"
+        - name: CORS_ORIGINES_ALLOW
+          value: "*"
+        - name: CORS_HEADERS_ALLOW
+          value: "Content-Type"

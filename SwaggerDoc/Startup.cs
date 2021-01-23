@@ -39,6 +39,7 @@ namespace SwaggerDoc
                     .AddSingleton<JournalTransaction>()
                     .AddTransient<IInterpretationService, InterpretationService>()
                     .AddCustomController()
+                    .AddCorsFromEnvironementVairable()
                     .AddSwagger()
                     .AddDistributedCache()
                     .AddSingleton<UniqueIdentifier>();
@@ -69,6 +70,8 @@ namespace SwaggerDoc
             });
 
             app.UseRouting();
+
+            app.UseCorsFromEnvironmentVairable();
 
             app.UseAuthentication();
 

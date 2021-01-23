@@ -6,7 +6,7 @@ on:
     
 env:
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-  REGISTRY_HOSTNAME: registry.digitalocean.com/freddycoderregistry
+  REGISTRY_HOSTNAME: freddycontainers.azurecr.io
   IMAGE_NAME: swaggerdoc
   DEPLOYMENT_NAME: swaggerdoc
 
@@ -17,48 +17,41 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # install the doctl command line tool
-      - name: Install the doctl command line tool
-        uses: digitalocean/action-doctl@v2
-        with:
-            token: ${{ secrets.KUBERNETES_CLUSTER_TOKEN }}
-
-      # Login to digital ocean container registry
-      - name: Login into digital ocean container registry
-        run: doctl registry login
+      # Login into acr
+      - name: Login into ACR
+        run: echo ${{ secrets.registryPassword }} | docker login $REGISTRY_HOSTNAME -u ${{ secrets.registryUsername }} --password-stdin
 
       # Build the image
-      #- name: Docker build
-      #  run: docker build -t $IMAGE_NAME:$GITHUB_RUN_ID .
+      - name: Docker build
+        run: docker build -t $IMAGE_NAME:$GITHUB_RUN_ID .
         
       # Tag the images
-      #- name: Docker tag
-      #  run: docker tag $IMAGE_NAME:$GITHUB_RUN_ID $REGISTRY_HOSTNAME/$IMAGE_NAME:$GITHUB_RUN_ID
+      - name: Docker tag
+        run: docker tag $IMAGE_NAME:$GITHUB_RUN_ID $REGISTRY_HOSTNAME/$IMAGE_NAME:$GITHUB_RUN_ID
 
       # Push the image
-      #- name: Docker push
-      #  run: docker push $REGISTRY_HOSTNAME/$IMAGE_NAME:$GITHUB_RUN_ID
+      - name: Docker push
+        run: docker push $REGISTRY_HOSTNAME/$IMAGE_NAME:$GITHUB_RUN_ID
 
       # Build the image nginx
-      - name: Docker build
-        run: docker build -f ./Infrastructure/nginx-https-ready.dockerfile -t nginx-https-ready:two .
+      #- name: Docker build
+      #  run: docker build -f ./Infrastructure/nginx-https-ready.dockerfile -t nginx-https-ready:two .
         
       # Tag the images nginx
-      - name: Docker tag
-        run: docker tag nginx-https-ready:two $REGISTRY_HOSTNAME/nginx-https-ready:two
+      #- name: Docker tag
+      #  run: docker tag nginx-https-ready:two $REGISTRY_HOSTNAME/nginx-https-ready:two
 
       # Push the image nginx
-      - name: Docker push
-        run: docker push $REGISTRY_HOSTNAME/nginx-https-ready:two
+      #- name: Docker push
+      #  run: docker push $REGISTRY_HOSTNAME/nginx-https-ready:two
 
-      # Connect to kubernetes cluster
-      - name: Set up kubectl
-        uses: matootie/dokube@v1.3.3
+      # Connect to Azure Kubernetes
+      - name: Azure Kubernetes set context
+        uses: Azure/aks-set-context@v1
         with:
-          personalAccessToken: ${{ secrets.KUBERNETES_CLUSTER_TOKEN }}
-          clusterName: kubem
-          version: 1.19.3
-          expirationTime: "1200"
+          creds: '${{ secrets.AZURE_CREDENTIALS }}'
+          resource-group: 'webapidesign'
+          cluster-name: 'kubem'
 
       # Replace variable in kubernetes file
       - name: Replace variable in k8s file
@@ -72,4 +65,4 @@ jobs:
       - name: Kubectl apply
         run: |
           kubectl config current-context
-          kubectl apply -f ./Infrastructure/nginx.yaml
+          kubectl apply -f ./Infrastructure/swaggerdoc.yaml

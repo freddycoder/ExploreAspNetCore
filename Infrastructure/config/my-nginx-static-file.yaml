@@ -20,15 +20,12 @@ data:
         <h2>Projects</h2>
         <div id="projet_erabliere_api">
           <h3>ErabliereApi</h3><i>Centralize et share data about mapple sirop</i>
+          <a href="https://erabliereapi.freddycoder.com">See demo</a>
           <a href="https://github.com/freddycoder/ErabliereApi">See on Github</a>
         </div>
         <div id="projet_hlhml">
           <h3>HLHML</h3><i>Write script in plain french</i>
           <a href="https://github.com/freddycoder/HLHML">See on Github</a>
-        </div>
-        <div id="projet_scholamusica">
-          <h3>ScholaMusica</h3><i>Website for teaching music online</i>
-          <a href="/scholamusica">Go to scholamusica</a>
         </div>
       </div>
       <script>

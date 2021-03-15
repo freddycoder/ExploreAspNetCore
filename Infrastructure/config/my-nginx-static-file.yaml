@@ -15,7 +15,6 @@ data:
     </head>
     <body>
       <h1>Wecome on freddycoder website!</h1>
-      <button onclick="callIncrement()">Like</button><span id="likeCount"></span>
       <div id="projects">
         <h2>Projects</h2>
         <div id="projet_erabliere_api">
@@ -28,16 +27,6 @@ data:
           <a href="https://github.com/freddycoder/HLHML">See on Github</a>
         </div>
       </div>
-      <script>
-        fetch("/api/redis/getlikes")
-        .then(data=>{return data.json()})
-        .then(res=>{document.getElementById("likeCount").textContent = res.result});
-        var callIncrement = function callIncrement() {
-        fetch("/api/redis/callincrement", { method: 'POST' })
-          .then(data=>{return data.json()})
-          .then(res=>{document.getElementById("likeCount").textContent = res.result});
-        }
-      </script>
     </body>
     </html>
   style.css: |

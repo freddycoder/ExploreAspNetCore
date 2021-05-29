@@ -3,15 +3,18 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNet.OData.Extensions;
 using SwaggerDoc.Extension;
 using SwaggerDoc.Model;
 using SwaggerDoc.Services;
 using static SwaggerDoc.Extension.DistributedCacheExtension;
+using AutoFixture;
+using OData.Swagger.Services;
 
 namespace SwaggerDoc
 {
     /// <summary>
-    /// Classe de démarrage de l'api
+    /// Classe de dï¿½marrage de l'api
     /// </summary>
     public class Startup
     {
@@ -25,7 +28,7 @@ namespace SwaggerDoc
         }
 
         /// <summary>
-        /// Accédéer au configuration de l'application
+        /// Accï¿½dï¿½er au configuration de l'application
         /// </summary>
         public IConfiguration Configuration { get; }
 
@@ -35,14 +38,16 @@ namespace SwaggerDoc
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ApiContexte>()
+            services.AddCustomController()
+                    .AddOData().Services
+                    .AddSwagger()
+                    .AddScoped<ApiContexte>()
                     .AddSingleton<JournalTransaction>()
                     .AddTransient<IInterpretationService, InterpretationService>()
-                    .AddCustomController()
                     .AddCorsFromEnvironementVairable()
-                    .AddSwagger()
                     .AddDistributedCache()
-                    .AddSingleton<UniqueIdentifier>();
+                    .AddSingleton<UniqueIdentifier>()
+                    .AddSingleton<IFixture, Fixture>();
         }
 
         /// <summary>
@@ -59,6 +64,10 @@ namespace SwaggerDoc
 
             app.UseStaticFiles();
 
+            app.UseSwagger(c =>
+            {
+                c.RouteTemplate = "api/{documentName}/swagger.json";
+            });
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
@@ -79,8 +88,9 @@ namespace SwaggerDoc
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.EnableDependencyInjection();
+                endpoints.Select();
                 endpoints.MapControllers();
-                endpoints.MapSwagger("api/{documentName}/swagger.json");
             });
         }
     }

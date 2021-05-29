@@ -14,7 +14,7 @@ namespace SwaggerDoc.Controllers
     /// Contrôlleur pour obtenir de l'information sur les configurations de l'api
     /// </summary>
     [ApiController]
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     public class ConfigurationController : Controller
     {
         private readonly IDistributedCache _cache;
@@ -36,7 +36,7 @@ namespace SwaggerDoc.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("{nomVariable}")]
-        public IActionResult GetEnvrionnementVariable([DefaultValue("REDIS_HOSTNAME")]string nomVariable)
+        public IActionResult GetEnvrionnementVariable([DefaultValue("REDIS_HOSTNAME")] string nomVariable)
         {
             var value = Environment.GetEnvironmentVariable(nomVariable);
 

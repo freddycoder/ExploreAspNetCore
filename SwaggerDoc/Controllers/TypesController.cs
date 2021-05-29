@@ -13,7 +13,7 @@ namespace SwaggerDoc.Controllers
     /// Permet d'obtenir le noms des différents types dans les assemblies
     /// </summary>
     [ApiController]
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     public class TypesController : ControllerBase
     {
         private readonly IDistributedCache _cache;
@@ -37,7 +37,7 @@ namespace SwaggerDoc.Controllers
         [ProducesResponseType(200, Type = typeof(ApiEnveloppe<List<string>>))]
         [ProducesResponseType(404, Type = typeof(ApiEnveloppe<object>))]
         [HttpGet]
-        public IActionResult Types(string name)
+        public IActionResult Types([FromQuery]string name)
             => Enveloppe(AppDomain.CurrentDomain
                 .GetAssemblies()
                 .SelectMany(a => a.GetTypes())
@@ -54,7 +54,7 @@ namespace SwaggerDoc.Controllers
         [ProducesResponseType(404, Type = typeof(ApiEnveloppe<object>))]
         [HttpGet("{name}")]
         [TypeNameValidator(Order = int.MinValue + 100)]
-        public IActionResult Get(string name)
+        public IActionResult Get([FromRoute] string name)
             => Enveloppe(AppDomain.CurrentDomain
                 .GetAssemblies()
                 .SelectMany(a => a.GetTypes())
@@ -81,7 +81,7 @@ namespace SwaggerDoc.Controllers
         /// Retourne le type utiliser pour la cache distribué
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("DistributedCache")]
         public IActionResult GetIDistributedCacheType()
         {
             return OkEnveloppe(_cache.GetType());

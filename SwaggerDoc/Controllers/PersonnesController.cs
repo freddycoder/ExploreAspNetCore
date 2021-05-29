@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoFixture;
+using Microsoft.AspNet.OData;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SwaggerDoc.Enveloppe;
 using SwaggerDoc.Extension;
@@ -12,28 +14,47 @@ namespace SwaggerDoc.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
-    public class PersonnesController
+    public class PersonnesController : ControllerBase
     {
-        private ILogger<PersonnesController> _logger;
+        private readonly ILogger<PersonnesController> _logger;
+        private readonly IFixture _fixture;
 
         /// <summary>
         /// Constructeur avec les dépendances requise pour le service.
         /// </summary>
         /// <param name="logger"></param>
-        public PersonnesController(ILogger<PersonnesController> logger)
+        /// <param name="fixture"></param>
+        public PersonnesController(ILogger<PersonnesController> logger, IFixture fixture)
         {
             _logger = logger;
+            _fixture = fixture;
+        }
+
+        /// <summary>
+        /// Obtenir une liste de personne aléatoire
+        /// </summary>
+        /// <param name="mediaType"></param>
+        /// <returns></returns>
+        [HttpGet("List")]
+        [EnableQuery]
+        public IActionResult GetList()
+        {
+            var person = _fixture.CreateMany<Personne>();
+
+            return Ok(person);
         }
 
         /// <summary>
         /// Action pour obtenir une personne
         /// </summary>
         /// <param name="personne"></param>
+        /// <param name="mediaType">Le media type</param>
         /// <returns></returns>
-        [HttpGet]
         [ProducesResponseType(200, Type = typeof(ApiEnveloppe<Personne>))]
+        [ProducesResponseType(200, Type = typeof(Personne))]
         [ProducesResponseType(404, Type = typeof(ApiEnveloppe<object>))]
-        public IActionResult Personne([FromQuery] Personne personne)
+        [HttpGet]
+        public IActionResult Personne([FromQuery] Personne personne, [FromHeader(Name = "Accept")] string mediaType)
         {
             if (personne == default)
             {
@@ -44,12 +65,18 @@ namespace SwaggerDoc.Controllers
 
             _logger.LogDebug("$Xml$".Format(personne, bindingFlags: System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic));
 
-            return OkEnveloppe(personne).WithMessage(new Message 
-            { 
-                Code = "Xml", Id = "1", 
-                Severity = "Information", 
-                Text = "$Xml$".Format(personne, bindingFlags: System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic) 
-            });
+            if (mediaType == "application/json+enveloppe")
+            {
+                return OkEnveloppe(personne).WithMessage(new Message
+                {
+                    Code = "Xml",
+                    Id = "1",
+                    Severity = "Information",
+                    Text = "$Xml$".Format(personne, bindingFlags: System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)
+                });
+            }
+
+            return OkEnveloppe(personne);
         }
 
         /// <summary>
@@ -80,7 +107,6 @@ namespace SwaggerDoc.Controllers
         /// <summary>
         /// Action pour obtenir une personne
         /// </summary>
-        /// <param name="prenom"></param>
         /// <returns></returns>
         [HttpPost("FromPOST")]
         [ProducesResponseType(200, Type = typeof(ApiEnveloppe<string>))]
@@ -103,7 +129,6 @@ namespace SwaggerDoc.Controllers
         /// <summary>
         /// Action pour obtenir une personne
         /// </summary>
-        /// <param name="prenom"></param>
         /// <returns></returns>
         [HttpPost("WhatCharIsThis")]
         [ProducesResponseType(200, Type = typeof(ApiEnveloppe<string>))]

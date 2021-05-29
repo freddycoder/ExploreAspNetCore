@@ -9,6 +9,10 @@ namespace SwaggerDoc.Controllers
     [ApiController]
     public class XmlController : Controller
     {
+        /// <summary>
+        /// Read xml from request body
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> CreateXml()
         {

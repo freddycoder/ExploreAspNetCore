@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using OData.Swagger.Services;
 using System;
 using System.IO;
 using System.Reflection;
@@ -47,6 +48,8 @@ namespace SwaggerDoc.Extension
             });
 
             services.AddSwaggerGenNewtonsoftSupport();
+
+            services.AddOdataSwaggerSupport();
 
             return services;
         }

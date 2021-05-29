@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "227580cb-7829-47b9-9993-2fd9aec3b756",
+		"_postman_id": "2fe7c28e-a215-4fdc-ad6a-6692ced832d6",
 		"name": "ExploreAspNet",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,7 +14,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "3aabb395-9d11-41fc-801e-b7c5a01f34e9",
 								"exec": [
 									"pm.test(\"Body matches string\", function () {\r",
 									"    pm.expect(pm.response.text()).to.include(\"System.String\");\r",
@@ -28,11 +27,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/Types/String",
+							"raw": "{{url}}/api/Types/String",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"Types",
 								"String"
 							]
@@ -57,8 +57,8 @@
 								}
 							},
 							"code": 200,
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
 							"body": "{ \"System.String\" }"
 						}
@@ -70,7 +70,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ebb83fb5-9e10-4139-bb06-c8556f555f23",
 								"exec": [
 									"var retour = pm.response.json();\r",
 									"\r",
@@ -104,11 +103,12 @@
 							"raw": "{\r\n    \"text\": \"afficher \\\"hello world!\\\"\"\r\n}"
 						},
 						"url": {
-							"raw": "{{url}}/Programming",
+							"raw": "{{url}}/api/Programming",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"Programming"
 							]
 						},
@@ -211,7 +211,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c261c9c3-148e-48bc-952e-9fc4328f9a61",
 								"exec": [
 									"var retour = pm.response.json();\r",
 									"\r",
@@ -225,17 +224,29 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json+enveloppe",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{url}}/Configuration/GetAspNetCoreEnvironnement",
+							"raw": "{{url}}/api/Configuration/ASPNETCORE_ENVIRONMENT",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"Configuration",
-								"GetAspNetCoreEnvironnement"
+								"ASPNETCORE_ENVIRONMENT"
 							]
 						}
 					},
@@ -247,11 +258,12 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/Redis/CallIncrement",
+							"raw": "{{url}}/api/Redis/CallIncrement",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"Redis",
 								"CallIncrement"
 							]
@@ -265,7 +277,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "452e6901-725f-460f-9108-e7d9cdaaad60",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(pm.test.name + \" status code is 200\", () => {",
@@ -274,8 +285,7 @@
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Headers",
@@ -297,35 +307,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/Personnes/FromHeader",
+							"raw": "{{url}}/api/Personnes/FromHeader",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"Personnes",
-								"FromHeader"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Cas nominal Bad space",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "prenom",
-								"value": "",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{url}}/Personnes/FromHeader",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
+								"api",
 								"Personnes",
 								"FromHeader"
 							]
@@ -335,6 +322,18 @@
 				},
 				{
 					"name": "Cas nominal Bad space in POST",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.variables.set(\"dateNaissance\", \"2001-01-01T00:00:00\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -346,7 +345,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"prenom\": \"\"\r\n}",
+							"raw": "{\r\n    \"prenom\": \"\",\r\n    \"nom\": \"{{$randomLastName}}\",\r\n    \"genre\": \"M\",\r\n    \"dateNaissance\": \"{{dateNaissance}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -354,37 +353,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/Personnes/FromPOST",
+							"raw": "{{url}}/api/Personnes/FromPOST",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"Personnes",
 								"FromPOST"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "All ASCII from 0 to 31",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "prenom",
-								"type": "text",
-								"value": " \u0001\u0002\u0003\u0004\u0005\u0006\u000e\u000f\u0010\u0011\u0012\u0013\u0014\u0015\u0016\u0017\u0018\u0019\u001a\u001c\u001d\u001e\u001f"
-							}
-						],
-						"url": {
-							"raw": "{{url}}/Personnes/FromHeader",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"Personnes",
-								"FromHeader"
 							]
 						}
 					},
@@ -402,35 +378,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/Personnes/FromHeader",
+							"raw": "{{url}}/api/Personnes/FromHeader",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"Personnes",
-								"FromHeader"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ASCI from 127",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "prenom",
-								"type": "text",
-								"value": ""
-							}
-						],
-						"url": {
-							"raw": "{{url}}/Personnes/FromHeader",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
+								"api",
 								"Personnes",
 								"FromHeader"
 							]
@@ -450,11 +403,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/Personnes/FromHeader",
+							"raw": "{{url}}/api/Personnes/FromHeader",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"api",
 								"Personnes",
 								"FromHeader"
 							]
@@ -462,98 +416,122 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
-			"name": "Client error",
+			"name": "OData",
 			"item": [
 				{
-					"name": "Status code 449",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "296d54e7-f925-46e4-8e83-d652d103bab4",
-								"exec": [
-									"pm.test(\"demo\", function () {\r",
-									"    pm.expect(pm.response.code).to.eq(449);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
+					"name": "Get person application/json",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "x-mock-response-code",
-								"value": "449",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"url": {
-							"raw": "{{url}}/RetryWith",
+							"raw": "{{url}}/api/Personnes/List",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"RetryWith"
+								"api",
+								"Personnes",
+								"List"
 							]
-						},
-						"description": "A request to test that postman can return the status code 449 using mock server."
-					},
-					"response": [
-						{
-							"name": "Status code 449",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/RetryWith",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"RetryWith"
-									]
-								}
-							},
-							"code": 449,
-							"_postman_previewlanguage": null,
-							"header": null,
-							"cookie": [],
-							"body": "{\r\n    \"RetryWith\": \"This is your lucky day!\"\r\n}"
 						}
-					]
-				}
-			],
-			"description": "A folder simulatin every client error using postman mock server",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "8f3d5cb6-6358-4b7a-92e2-007c93138023",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
+					},
+					"response": []
 				},
 				{
-					"listen": "test",
-					"script": {
-						"id": "22a49e0d-7bd3-48c3-ac3e-af116f39c286",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
+					"name": "Get person application/json + select",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Personnes/List?$select=prenom,nom",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Personnes",
+								"List"
+							],
+							"query": [
+								{
+									"key": "$select",
+									"value": "prenom,nom"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get person application/json+enveloppe",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json+enveloppe",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/Personnes/List",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Personnes",
+								"List"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get person application/json+enveloppe + select",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json+enveloppe",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/Personnes/List?$select=prenom,nom",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Personnes",
+								"List"
+							],
+							"query": [
+								{
+									"key": "$select",
+									"value": "prenom,nom"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

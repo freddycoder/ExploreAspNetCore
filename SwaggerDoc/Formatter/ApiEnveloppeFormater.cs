@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using SwaggerDoc.Enveloppe;
+using SwaggerDoc.Enveloppe.Base;
 using SwaggerDoc.Model;
 using System;
 using System.Collections.Generic;
@@ -53,15 +54,22 @@ namespace SwaggerDoc.Formatter
             var serializerSettings = serviceProvider.GetRequiredService<JsonSerializerSettings>();
             var buffer = new StringBuilder();
 
-            var enveloppe = new ApiEnveloppe<object>
+            if (context.Object is IApiEnveloppe == false)
             {
-                TransactionId = apiContexte.TransactionId,
-                TrackingId = apiContexte.TrackingId,
-                HttpStatusCode = (HttpStatusCode)context.HttpContext.Response.StatusCode,
-                Result = context.Object
-            };
+                var enveloppe = new ApiEnveloppe<object>
+                {
+                    TransactionId = apiContexte.TransactionId,
+                    TrackingId = apiContexte.TrackingId,
+                    HttpStatusCode = (HttpStatusCode)context.HttpContext.Response.StatusCode,
+                    Result = context.Object
+                };
 
-            buffer.Append(JsonConvert.SerializeObject(enveloppe, serializerSettings));
+                buffer.Append(JsonConvert.SerializeObject(enveloppe, serializerSettings));
+            }
+            else
+            {
+                buffer.Append(JsonConvert.SerializeObject(context.Object, serializerSettings));
+            }
 
             return httpContext.Response.WriteAsync(buffer.ToString(), selectedEncoding);
         }

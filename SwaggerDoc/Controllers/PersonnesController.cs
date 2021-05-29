@@ -33,10 +33,10 @@ namespace SwaggerDoc.Controllers
         /// <summary>
         /// Obtenir une liste de personne aléatoire
         /// </summary>
-        /// <param name="mediaType"></param>
         /// <returns></returns>
         [HttpGet("List")]
         [EnableQuery]
+        [ProducesResponseType(200, Type = typeof(Personne[]))]
         public IActionResult GetList()
         {
             var person = _fixture.CreateMany<Personne>();
@@ -50,9 +50,7 @@ namespace SwaggerDoc.Controllers
         /// <param name="personne"></param>
         /// <param name="mediaType">Le media type</param>
         /// <returns></returns>
-        [ProducesResponseType(200, Type = typeof(ApiEnveloppe<Personne>))]
         [ProducesResponseType(200, Type = typeof(Personne))]
-        [ProducesResponseType(404, Type = typeof(ApiEnveloppe<object>))]
         [HttpGet]
         public IActionResult Personne([FromQuery] Personne personne, [FromHeader(Name = "Accept")] string mediaType)
         {

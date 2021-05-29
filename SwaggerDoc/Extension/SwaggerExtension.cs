@@ -10,7 +10,7 @@ namespace SwaggerDoc.Extension
     /// <summary>
     /// Classe d'extension relier à l'intégration de swagger dans l'api
     /// </summary>
-    public static class SwaggerServiceCollectionExtension
+    public static class SwaggerExtension
     {
         /// <summary>
         /// Ajout de swagger

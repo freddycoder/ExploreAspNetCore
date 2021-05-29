@@ -20,7 +20,7 @@ namespace SwaggerDoc.Controllers
         [Authorize]
         public IActionResult AreYouAuthorise()
         {
-            return OkEnveloppe(true);
+            return Ok(true);
         }
     }
 }

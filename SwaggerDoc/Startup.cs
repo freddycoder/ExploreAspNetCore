@@ -89,7 +89,7 @@ namespace SwaggerDoc
             app.UseEndpoints(endpoints =>
             {
                 endpoints.EnableDependencyInjection();
-                endpoints.Select();
+                endpoints.Select().Count();
                 endpoints.MapControllers();
             });
         }

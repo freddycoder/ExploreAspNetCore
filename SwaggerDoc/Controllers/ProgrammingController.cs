@@ -37,8 +37,8 @@ namespace SwaggerDoc.Controllers
         /// <param name="programToExecute">Les données relative au programme à exécuter</param>
         /// <returns>Le résultat de la sortie standart produit par l'interpreteur</returns>
         [HttpPost]
-        [ProducesResponseType(200, Type = typeof(ApiEnveloppe<string>))]
-        [ProducesResponseType(400, Type = typeof(ApiEnveloppe<object>))]
+        [ProducesResponseType(200, Type = typeof(string))]
+        [ProducesResponseType(400, Type = typeof(object))]
         [EnableCors("HLHML")]
         public async Task<IActionResult> ExecuterScript([FromBody] ProgramToExecute programToExecute)
         {
@@ -58,6 +58,7 @@ namespace SwaggerDoc.Controllers
         /// <returns></returns>
         [HttpGet]
         [EnableCors("HLHML")]
+        [ProducesResponseType(200, Type = typeof(List<EntreeDictionnaire>))]
         public IActionResult ObtenirDictionaireDesTermes()
         {
             var d = new List<EntreeDictionnaire>(HLHML.DictionnaireTermeConnue.TermesConnues.Count);

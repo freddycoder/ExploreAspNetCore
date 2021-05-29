@@ -14,24 +14,13 @@ namespace SwaggerDoc.Controllers
     [Route("api/[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        /// <summary>
-        /// Constructeur d'initialisation de <see cref="WeatherForecast"/>
-        /// </summary>
-        /// <param name="logger"></param>
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
-        }
-
         /// <summary>
         /// Obtenir les prédictions météos selon une date de début et une date de fin
         /// </summary>
         /// <param name="dateArgs">La date de début et la date de fin</param>
         /// <returns>Une liste avec les prédictions météos selons l'intervalle de date demandé</returns>
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(ApiEnveloppe<WeatherForecast[]>))]
+        [ProducesResponseType(200, Type = typeof(WeatherForecast[]))]
         public IActionResult Get([FromQuery] DateArgs dateArgs)
         {
             var rng = new Random();
@@ -44,7 +33,7 @@ namespace SwaggerDoc.Controllers
             })
             .ToArray();
 
-            return OkEnveloppe(forcastResult);
+            return Ok(forcastResult);
         }
 
         private static readonly string[] Summaries = new[]

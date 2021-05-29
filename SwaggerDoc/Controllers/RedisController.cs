@@ -29,6 +29,7 @@ namespace SwaggerDoc.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(200, Type = typeof(string))]
         public async Task<IActionResult> GetLikes()
         {
             var likes = await _cache.GetStringAsync("increment", CancellationToken.None);
@@ -38,7 +39,7 @@ namespace SwaggerDoc.Controllers
                 likes = "0";
             }
 
-            return OkEnveloppe(likes);
+            return Ok(likes);
         }
 
         /// <summary>
@@ -46,6 +47,7 @@ namespace SwaggerDoc.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [ProducesResponseType(200, Type = typeof(string))]
         public async Task<IActionResult> CallIncrement()
         {
             var incrementAsString = await _cache.GetStringAsync("increment", CancellationToken.None);
@@ -59,7 +61,7 @@ namespace SwaggerDoc.Controllers
 
             await _cache.SetStringAsync("increment", increment.ToString(), CancellationToken.None);
 
-            return OkEnveloppe(increment);
+            return Ok(increment);
         }
     }
 }

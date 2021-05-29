@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using static SwaggerDoc.Enveloppe.ApiEnveloppeFactory;
-using System.Threading.Tasks;
 using System;
 using Microsoft.Extensions.Caching.Distributed;
 using static SwaggerDoc.Extension.DistributedCacheExtension;
 using System.ComponentModel;
-using SwaggerDoc.Enveloppe;
 using Microsoft.AspNetCore.Authorization;
 
 namespace SwaggerDoc.Controllers
@@ -17,17 +14,14 @@ namespace SwaggerDoc.Controllers
     [Route("api/[controller]")]
     public class ConfigurationController : Controller
     {
-        private readonly IDistributedCache _cache;
         private readonly UniqueIdentifier _identifier;
 
         /// <summary>
         /// Constructeur par initialisation avec les dépendance du contrôlleur
         /// </summary>
-        /// <param name="cache"></param>
         /// <param name="identifier">Identifiant unique de l'instance de cet api</param>
-        public ConfigurationController(IDistributedCache cache, UniqueIdentifier identifier)
+        public ConfigurationController(UniqueIdentifier identifier)
         {
-            _cache = cache;
             _identifier = identifier;
         }
 
@@ -36,13 +30,14 @@ namespace SwaggerDoc.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("{nomVariable}")]
+        [ProducesResponseType(200, Type = typeof(string))]
         public IActionResult GetEnvrionnementVariable([DefaultValue("REDIS_HOSTNAME")] string nomVariable)
         {
             var value = Environment.GetEnvironmentVariable(nomVariable);
 
-            if (value is null) return NotFoundEnveloppe(value);
+            if (value is null) return NotFound(value);
 
-            return OkEnveloppe(value);
+            return Ok(value);
         }
 
         /// <summary>
@@ -57,7 +52,7 @@ namespace SwaggerDoc.Controllers
         {
             Environment.SetEnvironmentVariable(nomVariable, nouvelleValeur);
 
-            return OkEnveloppe(null);
+            return Ok(null);
         }
 
         /// <summary>
@@ -65,9 +60,10 @@ namespace SwaggerDoc.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(200, Type = typeof(UniqueIdentifier))]
         public IActionResult GetIdentifier()
         {
-            return OkEnveloppe(_identifier);
+            return Ok(_identifier);
         }
     }
 }

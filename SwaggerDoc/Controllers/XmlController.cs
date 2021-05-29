@@ -14,6 +14,7 @@ namespace SwaggerDoc.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [ProducesResponseType(201)]
         public async Task<IActionResult> CreateXml()
         {
             using StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8);

@@ -18,7 +18,7 @@ namespace SwaggerDoc.Extension
     /// <summary>
     /// Classe d'extension permettant d'ajouter les controllers avec les configuration nécessaire
     /// </summary>
-    public static class ControllerServiceCollectionExtension
+    public static class ControllerExtension
     {
         /// <summary>
         /// Ajout des contrôlleurs avec les configurations nécessaire
@@ -35,6 +35,7 @@ namespace SwaggerDoc.Extension
                 o.Filters.Add<ApiContexteActionFilter>(int.MinValue + 10);
                 o.Filters.Add<JournalisationTransactionActionFilter>(int.MinValue + 12);
 
+                o.OutputFormatters.Add(new XmlFormater());
                 o.OutputFormatters.Add(new ApiEnveloppeFormater());
             })
             .AddNewtonsoftJson(o =>

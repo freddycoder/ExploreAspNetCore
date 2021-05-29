@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
-using SwaggerDoc.Enveloppe;
 using SwaggerDoc.Validator.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static SwaggerDoc.Enveloppe.ApiEnveloppeFactory;
 
 namespace SwaggerDoc.Controllers
 {
@@ -34,11 +32,11 @@ namespace SwaggerDoc.Controllers
         /// <returns>Les types trouvés</returns>
         /// <reponse code="200">La liste des types trouvés</reponse>
         /// <reponse code="404">Si aucun type est trouvé</reponse>
-        [ProducesResponseType(200, Type = typeof(ApiEnveloppe<List<string>>))]
-        [ProducesResponseType(404, Type = typeof(ApiEnveloppe<object>))]
+        [ProducesResponseType(200, Type = typeof(List<string>))]
+        [ProducesResponseType(404, Type = typeof(object))]
         [HttpGet]
         public IActionResult Types([FromQuery]string name)
-            => Enveloppe(AppDomain.CurrentDomain
+            => SetStatusCode(AppDomain.CurrentDomain
                 .GetAssemblies()
                 .SelectMany(a => a.GetTypes())
                 .Where(t => t.Name.Contains(name ?? "", StringComparison.OrdinalIgnoreCase))
@@ -50,12 +48,12 @@ namespace SwaggerDoc.Controllers
         /// </summary>
         /// <param name="name">Le nom du type doit contenir</param>
         /// <returns></returns>
-        [ProducesResponseType(200, Type = typeof(ApiEnveloppe<Type>))]
-        [ProducesResponseType(404, Type = typeof(ApiEnveloppe<object>))]
+        [ProducesResponseType(200, Type = typeof(Type))]
+        [ProducesResponseType(404, Type = typeof(object))]
         [HttpGet("{name}")]
         [TypeNameValidator(Order = int.MinValue + 100)]
         public IActionResult Get([FromRoute] string name)
-            => Enveloppe(AppDomain.CurrentDomain
+            => SetStatusCode(AppDomain.CurrentDomain
                 .GetAssemblies()
                 .SelectMany(a => a.GetTypes())
                 .FirstOrDefault(t => t.Name.Equals(name)));
@@ -66,10 +64,10 @@ namespace SwaggerDoc.Controllers
         /// <param name="name">Le nom du type doit contenir</param>
         /// <returns></returns>
         [HttpGet("Mappers")]
-        [ProducesResponseType(200, Type = typeof(ApiEnveloppe<List<string>>))]
-        [ProducesResponseType(404, Type = typeof(ApiEnveloppe<object>))]
+        [ProducesResponseType(200, Type = typeof(List<string>))]
+        [ProducesResponseType(404, Type = typeof(object))]
         public IActionResult TypesWithMapper(string name)
-            => Enveloppe(AppDomain.CurrentDomain
+            => SetStatusCode(AppDomain.CurrentDomain
                 .GetAssemblies()
                 .Append(typeof(AutoMapper.AdvancedConfiguration).Assembly)
                 .SelectMany(a => a.GetTypes())
@@ -84,30 +82,30 @@ namespace SwaggerDoc.Controllers
         [HttpGet("DistributedCache")]
         public IActionResult GetIDistributedCacheType()
         {
-            return OkEnveloppe(_cache.GetType());
+            return Ok(_cache.GetType());
         }
 
-        private IActionResult Enveloppe(IEnumerable<string> result)
+        private IActionResult SetStatusCode(IEnumerable<string> result)
         {
             if (result.Any())
             {
-                return OkEnveloppe(result);
+                return Ok(result);
             }
             else
             {
-                return NotFoundEnveloppe(result);
+                return NotFound(result);
             }
         }
 
-        private IActionResult Enveloppe(object? result)
+        private IActionResult SetStatusCode(object? result)
         {
             if (result != default)
             {
-                return OkEnveloppe(result);
+                return Ok(result);
             }
             else
             {
-                return NotFoundEnveloppe(result);
+                return NotFound(result);
             }
         }
     }

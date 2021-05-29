@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNet.OData;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,7 +15,6 @@ namespace SwaggerDoc.Controllers
     [Route("api/[controller]/[action]")]
     public class TransactionsController : Controller
     {
-        private static PropertyInfo[] TransactionProperties = typeof(Transaction).GetProperties();
         private readonly JournalTransaction _journalTransaction;
 
         /// <summary>
@@ -32,11 +32,10 @@ namespace SwaggerDoc.Controllers
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(List<Transaction>))]
+        [EnableQuery]
         public IActionResult GetAll()
         {
-            IEnumerable<Transaction> transactions = _journalTransaction.AsEnumerable().Select(kv => kv.Value);
-
-            return Ok(transactions.OrderByDescending(k => k.Debut));
+            return Ok(_journalTransaction.Values.OrderByDescending(k => k.Debut).AsQueryable());
         }
 
         /// <summary>

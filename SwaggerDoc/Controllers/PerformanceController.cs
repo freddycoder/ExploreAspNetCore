@@ -26,7 +26,7 @@ namespace SwaggerDoc.Controllers
         /// <param name="nbFormat"></param>
         /// <returns></returns>
         [HttpPost("nbFormat")]
-        [ProducesResponseType(200, Type = typeof(ApiEnveloppe<PerformanceResult>))]
+        [ProducesResponseType(200, Type = typeof(PerformanceResult))]
         public IActionResult FormatT([Min(1)]int nbFormat)
         {
             var chrono = new Stopwatch();

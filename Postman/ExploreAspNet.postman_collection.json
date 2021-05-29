@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "200",
+			"name": "Basic calls",
 			"item": [
 				{
 					"name": "GetTypeString",
@@ -15,6 +15,10 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test(pm.test.name + \" status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
 									"pm.test(\"Body matches string\", function () {\r",
 									"    pm.expect(pm.response.text()).to.include(\"System.String\");\r",
 									"});"
@@ -71,6 +75,10 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test(pm.test.name + \" status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
 									"var retour = pm.response.json();\r",
 									"\r",
 									"pm.test(\"Le resultat est \\\"Hello world!\\\"\", () => {\r",
@@ -212,6 +220,10 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test(pm.test.name + \" status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
 									"var retour = pm.response.json();\r",
 									"\r",
 									"if (pm.environment.name == \"kubem\") {\r",
@@ -253,7 +265,126 @@
 					"response": []
 				},
 				{
+					"name": "SetAstNetCoreEnvrionment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json+enveloppe",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\"Production\"",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Configuration/ASPNETCORE_ENVIRONMENT",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Configuration",
+								"ASPNETCORE_ENVIRONMENT"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAstNetCoreEnvrionment Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(pm.test.name + \" status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var retour = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Environnement is Production\", () => {\r",
+									"    pm.expect(retour.result).to.eq(\"Production\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json+enveloppe",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/Configuration/ASPNETCORE_ENVIRONMENT",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Configuration",
+								"ASPNETCORE_ENVIRONMENT"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Clap",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(pm.test.name + \" status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -275,13 +406,20 @@
 			"description": "Requête retournant un code 200",
 			"event": [
 				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
 					"listen": "test",
 					"script": {
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(pm.test.name + \" status code is 200\", () => {",
-							"    pm.response.to.have.status(200);",
-							"});"
+							""
 						]
 					}
 				}
@@ -532,6 +670,169 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "GetAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var response = pm.response.json();\r",
+									"\r",
+									"pm.collectionVariables.set(\"transactionId\", response[response.length - 1].transactionId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Transactions/GetAll",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Transactions",
+								"GetAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Transactions/Get/{{transactionId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Transactions",
+								"Get",
+								"{{transactionId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Random",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Transactions/Get/{{$guid}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Transactions",
+								"Get",
+								"{{$guid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Random + Enveloppe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json+enveloppe",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/Transactions/Get/{{$guid}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Transactions",
+								"Get",
+								"{{$guid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Count 1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Transactions/Count",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Transactions",
+								"Count"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "transactionId",
+			"value": ""
 		}
 	]
 }
